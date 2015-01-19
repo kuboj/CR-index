@@ -1,0 +1,2 @@
+/home/bubo/workspace/CR-index/libdivsufsort/build/lib/CMakeFiles/divsufsort.dir
+/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/uninstall.dir

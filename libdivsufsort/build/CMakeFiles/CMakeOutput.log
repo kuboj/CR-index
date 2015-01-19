@@ -1,0 +1,429 @@
+The system is: Linux - 3.11.0-15-generic - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/bin/cc 
+Build flags: 
+Id flags: 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/2.8.12.2/CompilerIdC/a.out"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec2128735725/fast"
+make[1]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2128735725.dir/build.make CMakeFiles/cmTryCompileExec2128735725.dir/build
+make[2]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2128735725.dir/testCCompiler.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2128735725.dir/testCCompiler.c.o   -c /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTryCompileExec2128735725
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2128735725.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2128735725.dir/testCCompiler.c.o  -o cmTryCompileExec2128735725 -rdynamic 
+make[2]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec1686698266/fast"
+make[1]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1686698266.dir/build.make CMakeFiles/cmTryCompileExec1686698266.dir/build
+make[2]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1686698266.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec1686698266.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-2.8/Modules/CMakeCCompilerABI.c
+Linking C executable cmTryCompileExec1686698266
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1686698266.dir/link.txt --verbose=1
+/usr/bin/cc     -v CMakeFiles/cmTryCompileExec1686698266.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec1686698266 -rdynamic  
+Using built-in specs.
+COLLECT_GCC=/usr/bin/cc
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/4.8/lto-wrapper
+Target: x86_64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Ubuntu 4.8.2-19ubuntu1' --with-bugurl=file:///usr/share/doc/gcc-4.8/README.Bugs --enable-languages=c,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-4.8 --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --with-gxx-include-dir=/usr/include/c++/4.8 --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --enable-gnu-unique-object --disable-libmudflap --enable-plugin --with-system-zlib --disable-browser-plugin --enable-java-awt=gtk --enable-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-4.8-amd64/jre --enable-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-4.8-amd64 --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-4.8-amd64 --with-arch-directory=amd64 --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --enable-objc-gc --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --with-tune=generic --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
+Thread model: posix
+gcc version 4.8.2 (Ubuntu 4.8.2-19ubuntu1) 
+COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec1686698266' '-rdynamic' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTryCompileExec1686698266 /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../.. CMakeFiles/cmTryCompileExec1686698266.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/4.8/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crtn.o
+make[2]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:/usr/bin/make "cmTryCompileExec1686698266/fast"]
+  ignore line: [make[1]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp']
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTryCompileExec1686698266.dir/build.make CMakeFiles/cmTryCompileExec1686698266.dir/build]
+  ignore line: [make[2]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp']
+  ignore line: [/usr/bin/cmake -E cmake_progress_report /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CMakeFiles 1]
+  ignore line: [Building C object CMakeFiles/cmTryCompileExec1686698266.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc    -o CMakeFiles/cmTryCompileExec1686698266.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-2.8/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTryCompileExec1686698266]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1686698266.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc     -v CMakeFiles/cmTryCompileExec1686698266.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec1686698266 -rdynamic  ]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/cc]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/4.8/lto-wrapper]
+  ignore line: [Target: x86_64-linux-gnu]
+  ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 4.8.2-19ubuntu1' --with-bugurl=file:///usr/share/doc/gcc-4.8/README.Bugs --enable-languages=c,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-4.8 --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --with-gxx-include-dir=/usr/include/c++/4.8 --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --enable-gnu-unique-object --disable-libmudflap --enable-plugin --with-system-zlib --disable-browser-plugin --enable-java-awt=gtk --enable-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-4.8-amd64/jre --enable-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-4.8-amd64 --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-4.8-amd64 --with-arch-directory=amd64 --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --enable-objc-gc --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --with-tune=generic --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 4.8.2 (Ubuntu 4.8.2-19ubuntu1) ]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec1686698266' '-rdynamic' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTryCompileExec1686698266 /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../.. CMakeFiles/cmTryCompileExec1686698266.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/4.8/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crtn.o]
+    arg [/usr/lib/gcc/x86_64-linux-gnu/4.8/collect2] ==> ignore
+    arg [--sysroot=/] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [--hash-style=gnu] ==> ignore
+    arg [--as-needed] ==> ignore
+    arg [-export-dynamic] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-zrelro] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTryCompileExec1686698266] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o] ==> ignore
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/4.8] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/4.8]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib]
+    arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
+    arg [-L/lib/../lib] ==> dir [/lib/../lib]
+    arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
+    arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/4.8/../../..]
+    arg [CMakeFiles/cmTryCompileExec1686698266.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [-lc] ==> lib [c]
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/4.8/crtend.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crtn.o] ==> ignore
+  remove lib [gcc]
+  remove lib [gcc_s]
+  remove lib [gcc]
+  remove lib [gcc_s]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/4.8] ==> [/usr/lib/gcc/x86_64-linux-gnu/4.8]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib] ==> [/usr/lib]
+  collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
+  collapse library dir [/lib/../lib] ==> [/lib]
+  collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/4.8/../../..] ==> [/usr/lib]
+  implicit libs: [c]
+  implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/4.8;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib]
+  implicit fwks: []
+
+
+Performing C SOURCE FILE Test HAVE_GCC_WALL succeded with the following output:
+Change Dir: /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec2710552352/fast"
+make[1]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2710552352.dir/build.make CMakeFiles/cmTryCompileExec2710552352.dir/build
+make[2]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2710552352.dir/src.c.o
+/usr/bin/cc   -DHAVE_GCC_WALL -Wall   -o CMakeFiles/cmTryCompileExec2710552352.dir/src.c.o   -c /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTryCompileExec2710552352
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2710552352.dir/link.txt --verbose=1
+/usr/bin/cc   -DHAVE_GCC_WALL -Wall    CMakeFiles/cmTryCompileExec2710552352.dir/src.c.o  -o cmTryCompileExec2710552352 -rdynamic 
+make[2]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { return 0; }
+Performing C SOURCE FILE Test HAVE_GCC_FOMIT_FRAME_POINTER succeded with the following output:
+Change Dir: /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec843802211/fast"
+make[1]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec843802211.dir/build.make CMakeFiles/cmTryCompileExec843802211.dir/build
+make[2]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec843802211.dir/src.c.o
+/usr/bin/cc   -Wall -DHAVE_GCC_FOMIT_FRAME_POINTER -fomit-frame-pointer   -o CMakeFiles/cmTryCompileExec843802211.dir/src.c.o   -c /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTryCompileExec843802211
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec843802211.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall -DHAVE_GCC_FOMIT_FRAME_POINTER -fomit-frame-pointer    CMakeFiles/cmTryCompileExec843802211.dir/src.c.o  -o cmTryCompileExec843802211 -rdynamic 
+make[2]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { return 0; }
+Determining if the include file inttypes.h exists passed with the following output:
+Change Dir: /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec3257256024/fast"
+make[1]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3257256024.dir/build.make CMakeFiles/cmTryCompileExec3257256024.dir/build
+make[2]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3257256024.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -Wall    -o CMakeFiles/cmTryCompileExec3257256024.dir/CheckIncludeFile.c.o   -c /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec3257256024
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3257256024.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall     CMakeFiles/cmTryCompileExec3257256024.dir/CheckIncludeFile.c.o  -o cmTryCompileExec3257256024 -rdynamic 
+make[2]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file memory.h exists passed with the following output:
+Change Dir: /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec810901358/fast"
+make[1]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec810901358.dir/build.make CMakeFiles/cmTryCompileExec810901358.dir/build
+make[2]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec810901358.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -Wall    -o CMakeFiles/cmTryCompileExec810901358.dir/CheckIncludeFile.c.o   -c /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec810901358
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec810901358.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall     CMakeFiles/cmTryCompileExec810901358.dir/CheckIncludeFile.c.o  -o cmTryCompileExec810901358 -rdynamic 
+make[2]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file stddef.h exists passed with the following output:
+Change Dir: /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec74457652/fast"
+make[1]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec74457652.dir/build.make CMakeFiles/cmTryCompileExec74457652.dir/build
+make[2]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec74457652.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -Wall    -o CMakeFiles/cmTryCompileExec74457652.dir/CheckIncludeFile.c.o   -c /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec74457652
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec74457652.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall     CMakeFiles/cmTryCompileExec74457652.dir/CheckIncludeFile.c.o  -o cmTryCompileExec74457652 -rdynamic 
+make[2]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file stdint.h exists passed with the following output:
+Change Dir: /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec315166263/fast"
+make[1]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec315166263.dir/build.make CMakeFiles/cmTryCompileExec315166263.dir/build
+make[2]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec315166263.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -Wall    -o CMakeFiles/cmTryCompileExec315166263.dir/CheckIncludeFile.c.o   -c /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec315166263
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec315166263.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall     CMakeFiles/cmTryCompileExec315166263.dir/CheckIncludeFile.c.o  -o cmTryCompileExec315166263 -rdynamic 
+make[2]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file stdlib.h exists passed with the following output:
+Change Dir: /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec816045240/fast"
+make[1]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec816045240.dir/build.make CMakeFiles/cmTryCompileExec816045240.dir/build
+make[2]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec816045240.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -Wall    -o CMakeFiles/cmTryCompileExec816045240.dir/CheckIncludeFile.c.o   -c /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec816045240
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec816045240.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall     CMakeFiles/cmTryCompileExec816045240.dir/CheckIncludeFile.c.o  -o cmTryCompileExec816045240 -rdynamic 
+make[2]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file string.h exists passed with the following output:
+Change Dir: /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec2327580609/fast"
+make[1]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2327580609.dir/build.make CMakeFiles/cmTryCompileExec2327580609.dir/build
+make[2]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2327580609.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -Wall    -o CMakeFiles/cmTryCompileExec2327580609.dir/CheckIncludeFile.c.o   -c /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec2327580609
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2327580609.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall     CMakeFiles/cmTryCompileExec2327580609.dir/CheckIncludeFile.c.o  -o cmTryCompileExec2327580609 -rdynamic 
+make[2]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file strings.h exists passed with the following output:
+Change Dir: /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec1218841650/fast"
+make[1]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1218841650.dir/build.make CMakeFiles/cmTryCompileExec1218841650.dir/build
+make[2]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1218841650.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -Wall    -o CMakeFiles/cmTryCompileExec1218841650.dir/CheckIncludeFile.c.o   -c /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec1218841650
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1218841650.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall     CMakeFiles/cmTryCompileExec1218841650.dir/CheckIncludeFile.c.o  -o cmTryCompileExec1218841650 -rdynamic 
+make[2]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file sys/types.h exists passed with the following output:
+Change Dir: /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec4236762512/fast"
+make[1]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec4236762512.dir/build.make CMakeFiles/cmTryCompileExec4236762512.dir/build
+make[2]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4236762512.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -Wall    -o CMakeFiles/cmTryCompileExec4236762512.dir/CheckIncludeFile.c.o   -c /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec4236762512
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec4236762512.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall     CMakeFiles/cmTryCompileExec4236762512.dir/CheckIncludeFile.c.o  -o cmTryCompileExec4236762512 -rdynamic 
+make[2]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+
+
+Performing C SOURCE FILE Test HAVE_INLINE succeded with the following output:
+Change Dir: /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec35588646/fast"
+make[1]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec35588646.dir/build.make CMakeFiles/cmTryCompileExec35588646.dir/build
+make[2]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec35588646.dir/src.c.o
+/usr/bin/cc   -Wall -DHAVE_INLINE   -o CMakeFiles/cmTryCompileExec35588646.dir/src.c.o   -c /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTryCompileExec35588646
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec35588646.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall -DHAVE_INLINE    CMakeFiles/cmTryCompileExec35588646.dir/src.c.o  -o cmTryCompileExec35588646 -rdynamic 
+make[2]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+inline void func(); void func() { } int main() { func(); return 0; }
+Performing C SOURCE FILE Test HAVE___INLINE succeded with the following output:
+Change Dir: /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec2306609246/fast"
+make[1]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2306609246.dir/build.make CMakeFiles/cmTryCompileExec2306609246.dir/build
+make[2]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2306609246.dir/src.c.o
+/usr/bin/cc   -Wall -DHAVE___INLINE   -o CMakeFiles/cmTryCompileExec2306609246.dir/src.c.o   -c /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTryCompileExec2306609246
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2306609246.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall -DHAVE___INLINE    CMakeFiles/cmTryCompileExec2306609246.dir/src.c.o  -o cmTryCompileExec2306609246 -rdynamic 
+make[2]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+__inline void func(); void func() { } int main() { func(); return 0; }
+Performing C SOURCE FILE Test HAVE___INLINE__ succeded with the following output:
+Change Dir: /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec273183188/fast"
+make[1]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec273183188.dir/build.make CMakeFiles/cmTryCompileExec273183188.dir/build
+make[2]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec273183188.dir/src.c.o
+/usr/bin/cc   -Wall -DHAVE___INLINE__   -o CMakeFiles/cmTryCompileExec273183188.dir/src.c.o   -c /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTryCompileExec273183188
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec273183188.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall -DHAVE___INLINE__    CMakeFiles/cmTryCompileExec273183188.dir/src.c.o  -o cmTryCompileExec273183188 -rdynamic 
+make[2]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+__inline__ void func(); void func() { } int main() { func(); return 0; }
+Determining size of uint8_t passed with the following output:
+Change Dir: /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec800494514/fast"
+make[1]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec800494514.dir/build.make CMakeFiles/cmTryCompileExec800494514.dir/build
+make[2]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec800494514.dir/UINT8_T.c.o
+/usr/bin/cc   -Wall    -o CMakeFiles/cmTryCompileExec800494514.dir/UINT8_T.c.o   -c /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CheckTypeSize/UINT8_T.c
+Linking C executable cmTryCompileExec800494514
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec800494514.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall     CMakeFiles/cmTryCompileExec800494514.dir/UINT8_T.c.o  -o cmTryCompileExec800494514 -rdynamic 
+make[2]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+
+
+Determining size of int32_t passed with the following output:
+Change Dir: /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec2116324364/fast"
+make[1]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2116324364.dir/build.make CMakeFiles/cmTryCompileExec2116324364.dir/build
+make[2]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2116324364.dir/INT32_T.c.o
+/usr/bin/cc   -Wall    -o CMakeFiles/cmTryCompileExec2116324364.dir/INT32_T.c.o   -c /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CheckTypeSize/INT32_T.c
+Linking C executable cmTryCompileExec2116324364
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2116324364.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall     CMakeFiles/cmTryCompileExec2116324364.dir/INT32_T.c.o  -o cmTryCompileExec2116324364 -rdynamic 
+make[2]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+
+
+Determining if the PRId32 exist passed with the following output:
+Change Dir: /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec3960978517/fast"
+make[1]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3960978517.dir/build.make CMakeFiles/cmTryCompileExec3960978517.dir/build
+make[2]: Entering directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3960978517.dir/CheckSymbolExists.c.o
+/usr/bin/cc   -Wall    -o CMakeFiles/cmTryCompileExec3960978517.dir/CheckSymbolExists.c.o   -c /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec3960978517
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3960978517.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall     CMakeFiles/cmTryCompileExec3960978517.dir/CheckSymbolExists.c.o  -o cmTryCompileExec3960978517 -rdynamic 
+make[2]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp'
+
+File /home/bubo/workspace/CR-index/libdivsufsort/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <inttypes.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef PRId32
+  return ((int*)(&PRId32))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+

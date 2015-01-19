@@ -1,3 +1,9 @@
+CR-index_example
+
+# vim temp files
+*.swp
+*.swo
+
 # Compiled Object files
 *.slo
 *.lo
