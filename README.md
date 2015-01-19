@@ -11,3 +11,7 @@ Compressed read index - bioinf data structure for fast querying substring in rea
     * [Zlib](http://www.zlib.net/) (widely available as system package)
     * [Jemalloc](http://www.canonware.com/jemalloc/download.html) (widely available as system package)
   * [FM-index](https://github.com/mpetri/FM-Index) - implementation of FM-index by Matthias Petri, although this library is bundled in RM-index
+
+### Installation
+
+`make` builds all dependencies and compiles *RM-index_example.cpp*

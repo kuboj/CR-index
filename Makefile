@@ -6,7 +6,7 @@ INCCDS=./libcds/includes/
 INCDIVSUF=./libdivsufsort/build/include/
 
 default: ./libdivsufsort/build/lib/libdivsufsort.a ./libcds/lib/libcds.a
-	$(CCP) -I $(INCCDS) -I $(INCDIVSUF) $(CFLAGS) -w -o RMindex_example RMindex_example.cpp FM.cpp util.c libcds/lib/libcds.a libdivsufsort/build/lib/libdivsufsort.a
+	$(CCP) -I $(INCCDS) -I $(INCDIVSUF) $(CFLAGS) -w -o CR_example CR_example.cpp CR.cpp FM.cpp util.c libcds/lib/libcds.a libdivsufsort/build/lib/libdivsufsort.a
 
 ./libcds/lib/libcds.a: 
 	$(MAKE) -C libcds

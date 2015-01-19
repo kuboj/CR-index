@@ -1,4 +1,10 @@
-CR-index_example
+CR_example
+
+*.log
+
+# eclipse files
+.cproject
+.project
 
 # vim temp files
 *.swp
