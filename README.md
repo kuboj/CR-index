@@ -14,4 +14,4 @@ Compressed read index - bioinf data structure for fast querying substring in rea
 
 ### Installation
 
-`make` builds all dependencies and compiles *RM-index_example.cpp*
+`make` builds all dependencies and compiles *RM_example.cpp*
