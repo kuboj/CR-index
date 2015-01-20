@@ -1,12 +1,12 @@
 CCP=g++
 #CFLAGS=-g -W -Wall -O0 -DDEBUG
-CFLAGS=-W -Wall -O3
+CFLAGS=-W -Wall -O3 -std=c++11
 
 INCCDS=./libcds/includes/
 INCDIVSUF=./libdivsufsort/build/include/
 
 default: ./libdivsufsort/build/lib/libdivsufsort.a ./libcds/lib/libcds.a
-	$(CCP) -I $(INCCDS) -I $(INCDIVSUF) $(CFLAGS) -w -o CR_example CR_example.cpp CR.cpp FM.cpp util.c libcds/lib/libcds.a libdivsufsort/build/lib/libdivsufsort.a
+	$(CCP) -I $(INCCDS) -I $(INCDIVSUF) $(CFLAGS) -w -o CR_example CR_example.cpp CR.cpp FM.cpp util.c libcds/lib/libcds.a libdivsufsort/build/lib/libdivsufsort.a -lboost_filesystem -lboost_system
 
 ./libcds/lib/libcds.a: 
 	$(MAKE) -C libcds

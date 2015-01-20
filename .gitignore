@@ -1,3 +1,6 @@
+# genome folder
+genomes
+
 # built libraries
 libdivsufsort/build/
 libcds/includes/*
@@ -16,6 +19,7 @@ CR_example
 # eclipse files
 .cproject
 .project
+.settings
 
 # vim temp files
 *.swp

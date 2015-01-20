@@ -7,22 +7,45 @@
 #include <string>
 #include <exception>
 #include <stdexcept>
+#include <boost/algorithm/string.hpp>
+#include <boost/filesystem.hpp>
 #include "FM.h"
 
 using namespace std;
+using namespace boost::filesystem;
 
-bool CR::DEFAULT_VERBOSITY = false;
+const bool CR::DEFAULT_VERBOSITY = false;
 
 CR::CR(string path, bool verbose) {
     this->verbose = verbose;
+    this->reads = vector<string>();
+
     ifstream f(path.c_str());
 
     if (!f) {
         throw runtime_error("Error opening file '" + path + "'");
     }
 
-    cout << "File '" << path << "' opened, reading ..." << endl;
+    debug("File '" + path + "' opened, reading ...");
 
+    string l;
+    int i = 0;
+    int skipped = 0;
+    while (getline(f, l)) {
+        if (i++ % 4 != 1) {
+            continue;
+        }
+        boost::algorithm::trim(l);
+        if (check_read(l)) {
+            this->reads.push_back(l);
+        } else {
+            skipped++;
+        }
+    }
+    debug("Loaded " + to_string(this->reads.size()) + " reads. Skipped " +
+            to_string(skipped));
+
+    path tmpdir = temp_directory_path();
 
 //            uint8_t* buffer = new uint8_t[2000000000];
 //            uint32_t n = 0;
@@ -80,6 +103,20 @@ void CR::debug(string msg) {
         cerr << msg << endl;
     }
     return;
+}
+
+// TODO: modify this when taking into account reads with uNknowns etc. (R, ... )
+bool CR::check_read(string r) {
+    for (int i = 0; i < r.size(); i++) {
+        if ((r[i] != 'A') &&
+                (r[i] != 'C') &&
+                (r[i] != 'T') &&
+                (r[i] != 'G')) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 CR::~CR() {
