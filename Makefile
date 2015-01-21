@@ -1,6 +1,6 @@
 CCP=g++
-#CFLAGS=-g -W -Wall -O0 -DDEBUG
-CFLAGS=-W -Wall -O3 -std=c++11
+CFLAGS=-g -W -Wall -O0 -DDEBUG -std=c++11
+#CFLAGS=-W -Wall -O3 -std=c++11
 
 INCCDS=./libcds/includes/
 INCDIVSUF=./libdivsufsort/build/include/

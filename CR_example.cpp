@@ -16,8 +16,14 @@ int main(int argc, char** argv) {
     string filename = argv[1];
 
     try {
-        CR rm = CR(filename, true);
+        CR rm = CR(filename, 100, true);
 
+        string ll;
+        while(cin) {
+            cout << "waiting for input: " << endl;
+            getline(cin, ll);
+            rm.locate(ll);
+        }
     } catch(exception &e) {
         cerr << "Error: " << e.what() << endl;
         exit(1);
