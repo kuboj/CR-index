@@ -17,6 +17,7 @@
 using namespace std;
 
 const bool CR::DEFAULT_VERBOSITY = false;
+const int CR::DEFAULT_READ_LENGTH = 100;
 
 CR::CR(string path, int read_length, bool verbose) {
     this->read_length = read_length;
@@ -46,6 +47,7 @@ CR::CR(string path, int read_length, bool verbose) {
         }
         boost::algorithm::trim(l);
         if (check_read(l)) {
+            // TODO: sanitize read - a->A etc
             reads.push_back(l);
         } else {
             skipped++;

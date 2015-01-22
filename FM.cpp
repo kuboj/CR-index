@@ -20,7 +20,7 @@
 
 #include <algorithm>
 
-int FM::verbose = 0;
+int FM::verbose = 1;
 
 FM::FM(uint8_t* T,uint32_t N,uint32_t samplerate = DEFAULT_SAMPLERATE) {
     this->samplerate = samplerate;

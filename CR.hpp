@@ -8,7 +8,7 @@ using namespace std;
 class CR {
     public:
         static const bool DEFAULT_VERBOSITY;
-        static const bool DEFAULT_READ_LENGTH;
+        static const int DEFAULT_READ_LENGTH;
 
         CR(string path, int read_length = DEFAULT_READ_LENGTH,
                 bool verbose = DEFAULT_VERBOSITY);
