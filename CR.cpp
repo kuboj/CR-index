@@ -71,7 +71,7 @@ CR::CR(string path, int read_length, bool verbose) {
     redi::ipstream ips(cmd);
     string s;
     while (getline(ips, s)) {
-        info(s);
+        debug(s);
     }
     ips.close();
     int exit_code = ips.rdbuf()->status();
@@ -86,7 +86,7 @@ CR::CR(string path, int read_length, bool verbose) {
     redi::ipstream ips2(cmd2);
     string s2;
     while (getline(ips2, s2)) {
-        info(s2);
+        debug(s2);
     }
     ips2.close();
     int exit_code2 = ips2.rdbuf()->status();
@@ -115,7 +115,7 @@ CR::CR(string path, int read_length, bool verbose) {
     redi::ipstream ips3(cmd3);
     string s3;
     while (getline(ips3, s3)) {
-        info(s3);
+        debug(s3);
     }
     ips3.close();
     int exit_code3 = ips3.rdbuf()->status();
