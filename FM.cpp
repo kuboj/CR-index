@@ -185,6 +185,8 @@ FM::build(uint8_t* T,uint32_t n,uint32_t samplerate) {
     stop = gettime();
     elapsed = (float)(stop-start)/1000000;
     
+    delete[] X;
+
     /* build aux data */
     info("build FM-Index done. (%.3f sec)",elapsed);
     
