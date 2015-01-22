@@ -165,7 +165,7 @@ CR::CR(string path, int read_length, bool verbose) {
     T[n] = '\0';
 
     debug("Starting building FM-index ...");
-    FM* fm = new FM(T, n, 64);
+    FM* fm = new FM(T, n + 1, 64);
     if (!fm) {
         throw runtime_error("FM index building failed. Fuck you. That's why.");
     }
@@ -217,6 +217,11 @@ CR::CR(string path, int read_length, bool verbose) {
                 this->positions.push_back(pair<int, int>(indexes2[j], i));
             }
         }
+
+        delete[] indexes;
+        delete[] indexes2;
+        delete[] r;
+        delete[] r2;
     }
 
     cout << "Missing " << missing_read_count << " reads" << endl;
@@ -242,7 +247,7 @@ CR::CR(string path, int read_length, bool verbose) {
     T2[n2] = '\0';
 
     debug("Starting building FM-index for the second time ...");
-    this->fm = new FM(T2, n2, 64);
+    this->fm = new FM(T2, n2 + 1, 64);
     if (!this->fm) {
         throw runtime_error("FM index building failed. Fuck you. That's why.");
     }
@@ -275,6 +280,8 @@ vector<int> CR::locate2(string s) {
             retval.push_back(it->second);
         }
     }
+
+    delete[] indexes;
 
     return retval;
 }

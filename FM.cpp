@@ -125,6 +125,7 @@ FM::build(uint8_t* T,uint32_t n,uint32_t samplerate) {
     info("- remapping alphabet.");
     X = remap0(T,n);
     free(T);
+    //delete[] T;
     
     /* create cumulative counts */
     info("- creating cumulative counts C[].");
