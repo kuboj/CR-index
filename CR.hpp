@@ -27,4 +27,6 @@ class CR {
         bool check_read(string r);
         bool check_contig(string c);
         string rev_compl(string r);
+        string load_contigs(string contigs_path);
+        FM construct_fm(string s);
 };

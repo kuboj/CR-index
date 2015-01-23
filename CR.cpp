@@ -24,9 +24,6 @@ CR::CR(string path, int read_length, bool verbose) {
     this->verbose = verbose;
     this->positions = vector<pair<int, int>>();
 
-    string superstring = "";
-    vector<string >reads = vector<string>();
-
     boost::filesystem::path genome_path = boost::filesystem::path(path);
 
     ifstream f(genome_path.string().c_str());
@@ -35,26 +32,6 @@ CR::CR(string path, int read_length, bool verbose) {
         throw runtime_error("Error opening file '" +
                 genome_path.string()+ "'");
     }
-
-    debug("File '" + genome_path.string() + "' opened, reading ...");
-
-    string l;
-    int i = 0;
-    int skipped = 0;
-    while (getline(f, l)) {
-        if (i++ % 4 != 1) {
-            continue;
-        }
-        boost::algorithm::trim(l);
-        if (check_read(l)) {
-            // TODO: sanitize read - a->A etc
-            reads.push_back(l);
-        } else {
-            skipped++;
-        }
-    }
-    debug("Loaded " + to_string(reads.size()) + " reads. Skipped " +
-            to_string(skipped));
 
     boost::filesystem::path tmpdir = boost::filesystem::temp_directory_path();
     srand (time(NULL));
@@ -141,58 +118,46 @@ CR::CR(string path, int read_length, bool verbose) {
                 contigs_path.string() + "'");
     }
 
-    l = "";
-    i = 0;
-    skipped = 0;
-    while (getline(f2, l)) {
-        if (i++ % 2 != 1) {
+    string superstring = load_contigs(contigs_path.string());
+
+    // construct FM-index, find each read in it and add missing reads
+    this->fm = construct_fm(superstring);
+
+    int missing_read_count = 0;
+    int total_reads_size = 0;
+
+    debug("Querying FM index for reads");
+    string l;
+    int read_count = 0;
+    int line_count = 0;
+    int skipped = 0;
+    while (getline(f, l)) {
+        if (line_count++ % 4 != 1) {
             continue;
         }
         boost::algorithm::trim(l);
-        if (check_contig(l)) {
-            superstring += l;
-        } else {
+        if (!check_read(l)) {
             skipped++;
+            continue;
         }
-    }
 
-    // construct FM-index, find each read in it and add missing reads
-    uint8_t* T = new uint8_t[superstring.length() + 1];
-    uint32_t n = superstring.length();
-    for (int i = 0; i < n; i++) {
-        T[i] = superstring[i];
-    }
-    T[n] = '\0';
+        total_reads_size += l.length();
 
-    debug("Starting building FM-index ...");
-    FM* fm = new FM(T, n + 1, 64);
-    if (!fm) {
-        throw runtime_error("FM index building failed. Fuck you. That's why.");
-    }
-    debug("FM index building done");
-
-    int missing_read_count = 0;
-    string missing_reads_string = "";
-
-    debug("Querying FM index for reads");
-    for (int i = 0; i < reads.size(); i++) {
-        if (i % 10000 == 0) {
-            debug("Processing reads " + to_string(i) + " of " +
-                    to_string(reads.size()));
+        if (read_count % 10000 == 0) {
+            debug("Processed " + to_string(read_count) + " reads");
         }
-        string read = reads[i];
-        uint8_t* r = new uint8_t[read.length() + 1];
-        for (int j = 0; j < read.length(); j++) {
-            r[j] = read[j];
+        uint8_t* r = new uint8_t[l.length() + 1];
+        for (int j = 0; j < l.length(); j++) {
+            r[j] = l[j];
         }
-        r[read.length()] = '\0';
+        r[l.length()] = '\0';
 
         uint32_t num_matches;
         uint32_t* indexes;
-        indexes = fm->locate(r, read.length(), &num_matches);
+        indexes = fm->locate(r, l.length(), &num_matches);
 
         /////
-        string read2 = rev_compl(read);
+        string read2 = rev_compl(l);
         uint8_t* r2 = new uint8_t[read2.length() + 1];
         for (int j = 0; j < read2.length(); j++) {
             r2[j] = read2[j];
@@ -206,17 +171,19 @@ CR::CR(string path, int read_length, bool verbose) {
 
         if (num_matches == 0 && num_matches2 == 0) {
             missing_read_count++;
-            this->positions.push_back(pair<int, int>(superstring.length() +
-                    missing_reads_string.length(), i));
-            missing_reads_string += read;
+            this->positions.push_back(pair<int, int>(superstring.length(),
+                    read_count));
+            superstring += l;
         } else {
             for (int j = 0; j < num_matches; j++) {
-                this->positions.push_back(pair<int, int>(indexes[j], i));
+                this->positions.push_back(pair<int, int>(indexes[j], read_count));
             }
             for (int j = 0; j < num_matches2; j++) {
-                this->positions.push_back(pair<int, int>(indexes2[j], i));
+                this->positions.push_back(pair<int, int>(indexes2[j], read_count));
             }
         }
+
+        read_count++;
 
         delete[] indexes;
         delete[] indexes2;
@@ -224,39 +191,38 @@ CR::CR(string path, int read_length, bool verbose) {
         delete[] r2;
     }
 
-    cout << "Missing " << missing_read_count << " reads" << endl;
-    cout << "Positions size: " << this->positions.size() << endl;
-
-    superstring += missing_reads_string;
-
-    int total_reads_size = 0;
-    for (int i = 0; i < reads.size(); i++) {
-        total_reads_size += reads[i].length();
-    }
+    debug("Missing " + to_string(missing_read_count) + " reads");
+    debug("Positions size: " + to_string(this->positions.size()));
     info("Total reads size: " + to_string(total_reads_size) + "\n" +
             "Superstring size:  " + to_string(superstring.size()) + "\n" +
             "Compress ratio: " + to_string((float)total_reads_size / (float)superstring.size()));
 
     // rebuild FM-index
     delete fm;
-    uint8_t* T2 = new uint8_t[superstring.length() + 1];
-    uint32_t n2 = superstring.length();
-    for (int i = 0; i < n2; i++) {
-        T2[i] = superstring[i];
-    }
-    T2[n2] = '\0';
-
-    debug("Starting building FM-index for the second time ...");
-    this->fm = new FM(T2, n2 + 1, 64);
-    if (!this->fm) {
-        throw runtime_error("FM index building failed. Fuck you. That's why.");
-    }
-    debug("FM index building done. For the second time.");
+    this->fm = construct_fm(superstring);
 
     sort(this->positions.begin(), this->positions.end());
 
-    reads.clear();
     superstring.clear();
+}
+
+FM CR::construct_fm(string s) {
+    uint8_t* T = new uint8_t[s.length() + 1];
+    uint32_t n = s.length();
+
+    for (int i = 0; i < n; i++) {
+        T[i] = s[i];
+    }
+    T[n] = '\0';
+
+    debug("Starting building FM-index");
+    fm = new FM(T, n + 1, 64);
+    if (fm) {
+        throw runtime_error("FM index building failed. Fuck you. That's why.");
+    }
+    debug("FM index building done.");
+
+    return fm;
 }
 
 vector<int> CR::locate2(string s) {
@@ -367,6 +333,35 @@ string CR::rev_compl(string s) {
     }
     reverse(rc.begin(), rc.end());
     return rc;
+}
+
+string CR::load_contigs(string contigs_path) {
+    string retval = "";
+    ifstream f(contigs_path);
+
+    if (!f) {
+        throw runtime_error("Error opening file '" + contigs_path + "'");
+    }
+
+    string l = "";
+    int i = 0;
+    int skipped = 0;
+    while (getline(f, l)) {
+        if (i++ % 2 != 1) {
+            continue;
+        }
+        boost::algorithm::trim(l);
+        if (check_contig(l)) {
+            retval += l;
+        } else {
+            skipped++;
+        }
+    }
+
+    debug("Loaded " + to_string(i / 2) + " contigs. " + to_string(skipped) +
+            " skipped");
+
+    return retval;
 }
 
 CR::~CR() {
