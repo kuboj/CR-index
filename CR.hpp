@@ -20,7 +20,7 @@ class CR {
         int read_length;
         vector<pair<int, int>> positions;
 
-        FM* fm;
+        FM* fm_index;
         vector<int> locate2(string s);
         void debug(string msg);
         void info(string msg);
@@ -28,5 +28,6 @@ class CR {
         bool check_contig(string c);
         string rev_compl(string r);
         string load_contigs(string contigs_path);
-        FM construct_fm(string s);
+        FM* fm_construct(string s);
+        vector<int> fm_locate(string p);
 };
