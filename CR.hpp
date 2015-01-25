@@ -13,6 +13,7 @@ class CR {
         CR(string path, int read_length = DEFAULT_READ_LENGTH,
                 bool verbose = DEFAULT_VERBOSITY);
         vector<int> locate(string s);
+        vector<string> locate2(string s);
         ~CR();
 
     private:
@@ -21,7 +22,7 @@ class CR {
         vector<pair<int, int>> positions;
 
         FM* fm_index;
-        vector<int> locate2(string s);
+        vector<pair<int, int>> locate_positions(string s);
         void debug(string msg);
         void info(string msg);
         bool check_read(string r);
@@ -30,4 +31,5 @@ class CR {
         string load_contigs(string contigs_path);
         FM* fm_construct(string s);
         vector<int> fm_locate(string p);
+        string fm_extract(int start, int length);
 };

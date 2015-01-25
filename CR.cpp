@@ -22,7 +22,7 @@ const int CR::DEFAULT_READ_LENGTH = 100;
 CR::CR(string path, int read_length, bool verbose) {
     this->read_length = read_length;
     this->verbose = verbose;
-    this->positions = vector<pair<int, int>>;
+    this->positions = vector<pair<int, int>>();
 
     boost::filesystem::path genome_path = boost::filesystem::path(path);
 
@@ -215,8 +215,22 @@ vector<int> CR::fm_locate(string p) {
     return retval;
 }
 
-vector<int> CR::locate2(string s) {
-    vector<int> retval;
+string CR::fm_extract(int start, int length) {
+    string retval = "";
+    cout << "fm extract " << start << " " << length << endl;
+    uint8_t* s = this->fm_index->extract(start - 1, start - 1 + this->read_length);
+    for (int i = 0; i < length; i++) {
+        retval += s[i];
+    }
+    cout << "fm extract done" << endl;
+
+    delete[] s;
+    cout << retval << endl;
+    return retval;
+}
+
+vector<pair<int, int>> CR::locate_positions(string s) {
+    vector<pair<int, int>> retval;
     vector<int> indexes = fm_locate(s);
 
     for (auto i : indexes) {
@@ -225,7 +239,7 @@ vector<int> CR::locate2(string s) {
         auto low = lower_bound(this->positions.begin(), this->positions.end(), start_index);
         auto up = upper_bound(this->positions.begin(), this->positions.end(), end_index);
         for (auto it = low; it != up; it++) {
-            retval.push_back(it->second);
+            retval.push_back(*it);
         }
     }
 
@@ -234,9 +248,13 @@ vector<int> CR::locate2(string s) {
 
 vector<int> CR::locate(string s) {
     boost::algorithm::trim(s);
-    vector<int> retval = this->locate2(s);
-    for (int i : this->locate2(rev_compl(s))) {
-        retval.push_back(i);
+    vector<int> retval;
+
+    for (auto i : this->locate_positions(s)) {
+        retval.push_back(i.second);
+    }
+    for (auto i : this->locate_positions(rev_compl(s))) {
+        retval.push_back(i.second);
     }
 
     sort(retval.begin(), retval.end());
@@ -244,6 +262,30 @@ vector<int> CR::locate(string s) {
     string debug_string = "";
     for (auto i : retval) {
         debug_string += to_string(i) + ", ";
+    }
+    debug(debug_string);
+
+    return retval;
+}
+
+vector<string> CR::locate2(string s) {
+    boost::algorithm::trim(s);
+    vector<string> retval;
+
+    for (auto i : this->locate_positions(s)) {
+        cout << i.second << endl;
+        retval.push_back(fm_extract(i.first, this->read_length));
+    }
+    for (auto i : this->locate_positions(rev_compl(s))) {
+        cout << i.second << endl;
+        retval.push_back(fm_extract(i.first, this->read_length));
+    }
+
+    //sort(retval.begin(), retval.end());
+
+    string debug_string = "";
+    for (auto i : retval) {
+        debug_string += i + '\n';
     }
     debug(debug_string);
 
