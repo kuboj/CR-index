@@ -1,19 +1,6 @@
 #include "CR.hpp"
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <limits>
-#include <iostream>
-#include <fstream>
-#include <time.h>
-#include <string>
-#include <exception>
-#include <stdexcept>
-#include <boost/algorithm/string.hpp>
-#include <boost/filesystem.hpp>
-#include <pstreams/pstream.h>
-#include "FM.h"
 
+using namespace sdsl;
 using namespace std;
 
 const bool CR::DEFAULT_VERBOSITY = false;
@@ -167,7 +154,6 @@ CR::CR(string path, int read_length, bool verbose) {
             "Compress ratio: " + to_string((float)total_reads_size / (float)superstring.size()));
 
     // rebuild FM-index
-    delete this->fm_index;
     this->fm_index = fm_construct(superstring);
 
     sort(this->positions.begin(), this->positions.end());
@@ -175,58 +161,27 @@ CR::CR(string path, int read_length, bool verbose) {
     superstring.clear();
 }
 
-FM* CR::fm_construct(string s) {
-    uint8_t* T = new uint8_t[s.length() + 1];
-    uint32_t n = s.length();
-
-    for (int i = 0; i < n; i++) {
-        T[i] = s[i];
-    }
-    T[n] = '\0';
+fm_index_type CR::fm_construct(const string& data) {
+    fm_index_type fm;
 
     debug("Starting building FM-index");
-    FM* fm = new FM(T, n + 1, 64);
-    if (!fm) {
-        throw runtime_error("FM index building failed. Fuck you. That's why.");
-    }
+    construct_im(fm, data.c_str(), 1);
     debug("FM index building done.");
 
     return fm;
 }
 
-vector<int> CR::fm_locate(string p) {
-    vector<int> retval;
-    uint8_t* r = new uint8_t[p.length() + 1];
-    for (int i = 0; i < p.length(); i++) {
-        r[i] = p[i];
-    }
-    r[p.length()] = '\0';
-
-    uint32_t num_matches;
-    uint32_t* indexes;
-    indexes = this->fm_index->locate(r, p.length(), &num_matches);
-    for (int i = 0; i < num_matches; i++) {
-        retval.push_back(indexes[i]);
-    }
-
-    delete[] r;
-    delete[] indexes;
-
-    return retval;
+vector<int> CR::fm_locate(const string& query) {
+    auto retval = locate(this->fm_index, query.begin(), query.end());
+    return vector<int>(retval.begin(), retval.end());
 }
 
 string CR::fm_extract(int start, int length) {
-    string retval = "";
-    cout << "fm extract " << start << " " << length << endl;
-    uint8_t* s = this->fm_index->extract(start - 1, start - 1 + this->read_length);
-    for (int i = 0; i < length; i++) {
-        retval += s[i];
-    }
-    cout << "fm extract done" << endl;
+    return extract(this->fm_index, start, start + length - 1);
+}
 
-    delete[] s;
-    cout << retval << endl;
-    return retval;
+int CR::fm_memory_size() {
+    return size_in_bytes(this->fm_index);
 }
 
 vector<pair<int, int>> CR::locate_positions(string s) {
@@ -246,8 +201,8 @@ vector<pair<int, int>> CR::locate_positions(string s) {
     return retval;
 }
 
-vector<int> CR::locate(string s) {
-    boost::algorithm::trim(s);
+vector<int> CR::find_indexes(const string& s) {
+    boost::algorithm::trim_copy(s);
     vector<int> retval;
 
     for (auto i : this->locate_positions(s)) {
@@ -268,16 +223,14 @@ vector<int> CR::locate(string s) {
     return retval;
 }
 
-vector<string> CR::locate2(string s) {
-    boost::algorithm::trim(s);
+vector<string> CR::find_reads(const string& s) {
+    boost::algorithm::trim_copy(s);
     vector<string> retval;
 
     for (auto i : this->locate_positions(s)) {
-        cout << i.second << endl;
         retval.push_back(fm_extract(i.first, this->read_length));
     }
     for (auto i : this->locate_positions(rev_compl(s))) {
-        cout << i.second << endl;
         retval.push_back(fm_extract(i.first, this->read_length));
     }
 

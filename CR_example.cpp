@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
         while(cin) {
             cout << "waiting for input: " << endl;
             getline(cin, ll);
-            rm.locate2(ll);
+            rm.find_reads(ll);
         }
     } catch(exception &e) {
         cerr << "Error: " << e.what() << endl;
