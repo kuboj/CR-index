@@ -1,17 +1,37 @@
 #include "CR.hpp"
 
-using namespace sdsl;
 using namespace std;
 
 const bool CR::DEFAULT_VERBOSITY = false;
 const int CR::DEFAULT_READ_LENGTH = 100;
 
-CR::CR(string path, int read_length, bool verbose) {
-    this->read_length = read_length;
-    this->verbose = verbose;
+CR::CR(string p, int rl, bool v) {
     this->positions = vector<pair<int, int>>();
+    this->read_length = rl;
+    verbose = v;
 
-    boost::filesystem::path genome_path = boost::filesystem::path(path);
+    string superstring;
+
+    tie(superstring, this->positions) = preprocess(p);
+    this->fm_index = FMWrapper(superstring);
+    sort(this->positions.begin(), this->positions.end());
+    superstring.clear();
+}
+
+CR::CR(string superstring, vector<pair<int, int>> p, int rl, bool v) {
+    this->positions = p;
+    this->read_length = rl;
+    verbose = v;
+
+    this->fm_index = FMWrapper(superstring);
+    sort(this->positions.begin(), this->positions.end());
+    superstring.clear();
+}
+
+pair<string, vector<pair<int, int>>> CR::preprocess(string p) {
+    vector<pair<int, int>> _positions = vector<pair<int, int>>();
+
+    boost::filesystem::path genome_path = boost::filesystem::path(p);
 
     ifstream f(genome_path.string().c_str());
 
@@ -20,6 +40,7 @@ CR::CR(string path, int read_length, bool verbose) {
                 genome_path.string()+ "'");
     }
 
+    // create temporary directory
     boost::filesystem::path tmpdir = boost::filesystem::temp_directory_path();
     srand (time(NULL));
     tmpdir += "/" + to_string(rand() % 1000000) + "/";
@@ -98,10 +119,10 @@ CR::CR(string path, int read_length, bool verbose) {
     info(contigs_path.string() + " created.");
 
     // read contigs
-    string superstring = load_contigs(contigs_path.string());
+    string superstring = cr_util::load_contigs(contigs_path.string());
 
     // construct FM-index, find each read in it and add missing reads
-    this->fm_index = fm_construct(superstring);
+    FMWrapper _fm_index = FMWrapper(superstring);
 
     int missing_read_count = 0;
     int total_reads_size = 0;
@@ -116,7 +137,7 @@ CR::CR(string path, int read_length, bool verbose) {
             continue;
         }
         boost::algorithm::trim(l);
-        if (!check_read(l)) {
+        if (!cr_util::check_read(l)) {
             skipped++;
             continue;
         }
@@ -127,20 +148,20 @@ CR::CR(string path, int read_length, bool verbose) {
             debug("Processed " + to_string(read_count) + " reads");
         }
 
-        vector<int> matches = fm_locate(l);
-        vector<int> matches2 = fm_locate(rev_compl(l));
+        vector<int> matches = _fm_index.locate(l);
+        vector<int> matches2 = _fm_index.locate(cr_util::rev_compl(l));
 
         if (matches.size() == 0 && matches2.size() == 0) {
             missing_read_count++;
-            this->positions.push_back(pair<int, int>(superstring.length(),
+            _positions.push_back(pair<int, int>(superstring.length(),
                     read_count));
             superstring += l;
         } else {
             for (int m : matches) {
-                this->positions.push_back(pair<int, int>(m, read_count));
+                _positions.push_back(pair<int, int>(m, read_count));
             }
             for (int m : matches2) {
-                this->positions.push_back(pair<int, int>(m, read_count));
+                _positions.push_back(pair<int, int>(m, read_count));
             }
         }
 
@@ -148,45 +169,17 @@ CR::CR(string path, int read_length, bool verbose) {
     }
 
     debug("Missing " + to_string(missing_read_count) + " reads");
-    debug("Positions size: " + to_string(this->positions.size()));
+    debug("Positions size: " + to_string(_positions.size()));
     info("Total reads size: " + to_string(total_reads_size) + "\n" +
             "Superstring size:  " + to_string(superstring.size()) + "\n" +
             "Compress ratio: " + to_string((float)total_reads_size / (float)superstring.size()));
 
-    // rebuild FM-index
-    this->fm_index = fm_construct(superstring);
-
-    sort(this->positions.begin(), this->positions.end());
-
-    superstring.clear();
-}
-
-fm_index_type CR::fm_construct(const string& data) {
-    fm_index_type fm;
-
-    debug("Starting building FM-index");
-    construct_im(fm, data.c_str(), 1);
-    debug("FM index building done.");
-
-    return fm;
-}
-
-vector<int> CR::fm_locate(const string& query) {
-    auto retval = locate(this->fm_index, query.begin(), query.end());
-    return vector<int>(retval.begin(), retval.end());
-}
-
-string CR::fm_extract(int start, int length) {
-    return extract(this->fm_index, start, start + length - 1);
-}
-
-int CR::fm_memory_size() {
-    return size_in_bytes(this->fm_index);
+    return pair<string, vector<pair<int, int>>>(superstring, _positions);
 }
 
 vector<pair<int, int>> CR::locate_positions(string s) {
     vector<pair<int, int>> retval;
-    vector<int> indexes = fm_locate(s);
+    vector<int> indexes = this->fm_index.locate(s);
 
     for (auto i : indexes) {
         pair<int, int> start_index(i + s.length() - this->read_length, -1);
@@ -208,7 +201,7 @@ vector<int> CR::find_indexes(const string& s) {
     for (auto i : this->locate_positions(s)) {
         retval.push_back(i.second);
     }
-    for (auto i : this->locate_positions(rev_compl(s))) {
+    for (auto i : this->locate_positions(cr_util::rev_compl(s))) {
         retval.push_back(i.second);
     }
 
@@ -228,10 +221,10 @@ vector<string> CR::find_reads(const string& s) {
     vector<string> retval;
 
     for (auto i : this->locate_positions(s)) {
-        retval.push_back(fm_extract(i.first, this->read_length));
+        retval.push_back(this->fm_index.extract(i.first, this->read_length));
     }
-    for (auto i : this->locate_positions(rev_compl(s))) {
-        retval.push_back(fm_extract(i.first, this->read_length));
+    for (auto i : this->locate_positions(cr_util::rev_compl(s))) {
+        retval.push_back(this->fm_index.extract(i.first, this->read_length));
     }
 
     //sort(retval.begin(), retval.end());
@@ -246,7 +239,7 @@ vector<string> CR::find_reads(const string& s) {
 }
 
 void CR::debug(string msg) {
-    if (this->verbose) {
+    if (verbose) {
         cout << msg << endl;
     }
     return;
@@ -255,90 +248,6 @@ void CR::debug(string msg) {
 void CR::info(string msg) {
     cout << msg << endl;
     return;
-}
-
-// TODO: modify this when taking into account reads with uNknowns etc. (R, ... )
-bool CR::check_read(string r) {
-    for (int i = 0; i < r.size(); i++) {
-        if ((r[i] != 'A') &&
-                (r[i] != 'C') &&
-                (r[i] != 'T') &&
-                (r[i] != 'G')) {
-            return false;
-        }
-    }
-
-    return true;
-}
-
-// TODO: modify this when taking into account reads with uNknowns etc. (R, ... )
-bool CR::check_contig(string c) {
-    for (int i = 0; i < c.size(); i++) {
-        if ((c[i] != 'A') &&
-                (c[i] != 'C') &&
-                (c[i] != 'T') &&
-                (c[i] != 'G')) {
-            return false;
-        }
-    }
-
-    return true;
-}
-
-string CR::rev_compl(string s) {
-    string rc = "";
-    for (int i = 0; i < s.length(); i++) {
-        switch (s[i]) {
-        case 'A':
-            rc += 'T';
-            break;
-        case 'T':
-            rc += 'A';
-            break;
-        case 'C':
-            rc += 'G';
-            break;
-        case 'G':
-            rc += 'C';
-            break;
-        default:
-            rc += s[i];
-            break;
-        }
-    }
-    reverse(rc.begin(), rc.end());
-    return rc;
-}
-
-string CR::load_contigs(string contigs_path) {
-    string retval = "";
-    ifstream f(contigs_path);
-
-    if (!f) {
-        throw runtime_error("Error opening file '" + contigs_path + "'");
-    }
-
-    string l = "";
-    int i = 0;
-    int skipped = 0;
-    while (getline(f, l)) {
-        if (i++ % 2 != 1) {
-            continue;
-        }
-        boost::algorithm::trim(l);
-        if (check_contig(l)) {
-            retval += l;
-        } else {
-            skipped++;
-        }
-    }
-
-    debug("Loaded " + to_string(i / 2) + " contigs. " + to_string(skipped) +
-            " skipped");
-
-    f.close();
-
-    return retval;
 }
 
 CR::~CR() {
