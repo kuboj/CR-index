@@ -1,3 +1,7 @@
+# sga files
+*.hits.gz
+*.asqg.gz
+
 # heaptrack files
 heaptrack.*
 

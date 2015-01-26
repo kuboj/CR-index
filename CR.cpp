@@ -38,87 +38,36 @@ pair<string, vector<pair<int, int>>> CR::preprocess(string p, bool v) {
     ifstream f(genome_path.string().c_str());
 
     if (!f) {
-        throw runtime_error("Error opening file '" +
-                genome_path.string()+ "'");
+        throw runtime_error("Error opening file '" + genome_path.string() + "'");
     }
 
     // create temporary directory
-    boost::filesystem::path tmpdir = boost::filesystem::temp_directory_path();
-    srand (time(NULL));
-    tmpdir += "/" + to_string(rand() % 1000000) + "/";
-    string prefix = to_string(rand() % 1000000);
-    debug("creating temporary directory " + tmpdir.string() + "\n");
-    if (!boost::filesystem::create_directory(tmpdir)) {
-        throw runtime_error("failed to create temporary directory");
-    }
+    boost::filesystem::path tmpdir = cr_util::create_tmpdir();
+    debug("Temporary directory " + tmpdir.string() + " created");
+    boost::filesystem::path p_tmpdir = tmpdir / "cr"; // e.g. /tmp/634634/cr
 
-    // sga index
-    string cmd = "sga index -v -a ropebwt -c -t 4 -p " + tmpdir.string() +
-            "/" + prefix + " " + genome_path.string();
-    redi::ipstream ips(cmd);
-    string s;
-    while (getline(ips, s)) {
-        debug(s);
-    }
-    ips.close();
-    int exit_code = ips.rdbuf()->status();
-    if (exit_code != 0) {
-        throw runtime_error("Error while executing '" + cmd +
-                "'. Exit code: " + to_string(exit_code));
-    }
+    debug(cr_util::execute_command("sga index -v -a ropebwt -c -t 4 -p " +
+            p_tmpdir.string() + " " + genome_path.string()));
+    debug(cr_util::execute_command("sga overlap -v -t 4 -p " +
+            p_tmpdir.string() + " " + genome_path.string()));
 
-    // sga overlap
-    string cmd2 = "sga overlap -v -t 4 -p " + tmpdir.string() + "/" + prefix +
-            " " + genome_path.string();
-    redi::ipstream ips2(cmd2);
-    string s2;
-    while (getline(ips2, s2)) {
-        debug(s2);
-    }
-    ips2.close();
-    int exit_code2 = ips2.rdbuf()->status();
-    if (exit_code2 != 0) {
-        throw runtime_error("Error while executing '" + cmd2 +
-                "'. Exit code: " + to_string(exit_code));
-    }
-
+    // get path of overlap file because dickish sga overlap saves it to workdir
     boost::filesystem::path overlap_path = boost::filesystem::path(
             boost::filesystem::current_path() / (genome_path.stem().string() + ".asqg.gz"));
-    if (!boost::filesystem::exists(overlap_path)) {
-        throw runtime_error("Error. Overlap file '" + overlap_path.string() +
-                "' not found");
-    }
+    cr_util::check_path_existence(overlap_path);
 
     // move overlap file to tmpdir
-    info(overlap_path.string() + " created.");
-    boost::filesystem::path aux = boost::filesystem::path(tmpdir / (prefix +
-            ".asqg.gz"));
+    boost::filesystem::path aux = boost::filesystem::path(p_tmpdir.string() + ".asqg.gz");
     boost::filesystem::rename(overlap_path, aux);
     overlap_path = aux;
 
     // sga assemble
-    string cmd3 = "sga assemble -v -o " + tmpdir.string() +
-            "/" + prefix + " " + overlap_path.string();
-    redi::ipstream ips3(cmd3);
-    string s3;
-    while (getline(ips3, s3)) {
-        debug(s3);
-    }
-    ips3.close();
-    int exit_code3 = ips3.rdbuf()->status();
-    if (exit_code3 != 0) {
-        throw runtime_error("Error while executing '" + cmd3 +
-                "'. Exit code: " + to_string(exit_code3));
-    }
+    debug(cr_util::execute_command("sga assemble -v -o " + p_tmpdir.string() +
+            " " + overlap_path.string()));
 
     boost::filesystem::path contigs_path = boost::filesystem::path(
-            tmpdir / (prefix + "-contigs.fa"));
-    if (!boost::filesystem::exists(contigs_path)) {
-        throw runtime_error("Error. Contigs file '" + overlap_path.string() +
-                "' not found");
-    }
-
-    info(contigs_path.string() + " created.");
+            p_tmpdir.string() + "-contigs.fa");
+    cr_util::check_path_existence(contigs_path);
 
     // read contigs
     string superstring = cr_util::load_contigs(contigs_path.string());

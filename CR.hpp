@@ -12,7 +12,6 @@
 #include <stdexcept>
 #include <boost/algorithm/string.hpp>
 #include <boost/filesystem.hpp>
-#include <pstreams/pstream.h>
 #include "fm_wrapper.hpp"
 #include "util.hpp"
 

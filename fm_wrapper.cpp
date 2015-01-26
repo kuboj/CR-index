@@ -6,13 +6,13 @@ FMWrapper::FMWrapper() {
 
 }
 
-FMWrapper::FMWrapper(string data) {
+FMWrapper::FMWrapper(const string& data) {
     fm_index_type fm;
     sdsl::construct_im(fm, data.c_str(), 1);
     this->fm_index = fm;
 }
 
-vector<int> FMWrapper::locate(string query) {
+vector<int> FMWrapper::locate(const string& query) {
     auto retval = sdsl::locate(this->fm_index, query.begin(), query.end());
     return vector<int>(retval.begin(), retval.end());
 }

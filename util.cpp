@@ -4,7 +4,7 @@ using namespace std;
 
 namespace cr_util {
     // TODO: modify this when taking into account reads with uNknowns etc. (R, ... )
-    bool check_read(string r) {
+    bool check_read(const string& r) {
         for (int i = 0; i < r.size(); i++) {
             if ((r[i] != 'A') &&
                     (r[i] != 'C') &&
@@ -18,7 +18,7 @@ namespace cr_util {
     }
 
     // TODO: modify this when taking into account reads with uNknowns etc. (R, ... )
-    bool check_contig(string c) {
+    bool check_contig(const string& c) {
         for (int i = 0; i < c.size(); i++) {
             if ((c[i] != 'A') &&
                     (c[i] != 'C') &&
@@ -31,7 +31,7 @@ namespace cr_util {
         return true;
     }
 
-    string rev_compl(string s) {
+    string rev_compl(const string& s) {
         string rc = "";
         for (int i = 0; i < s.length(); i++) {
             switch (s[i]) {
@@ -56,7 +56,7 @@ namespace cr_util {
         return rc;
     }
 
-    string load_contigs(string contigs_path) {
+    string load_contigs(const string& contigs_path) {
         string retval = "";
         ifstream f(contigs_path);
 
@@ -82,5 +82,41 @@ namespace cr_util {
         f.close();
 
         return retval;
+    }
+
+    string execute_command(const string &command) {
+        string output;
+
+        redi::ipstream ips(command);
+        string l;
+        while (getline(ips, l)) {
+            output += l + '\n';
+        }
+        ips.close();
+        int exit_code = ips.rdbuf()->status();
+        if (exit_code != 0) {
+            throw runtime_error("Error while executing '" + command +
+                    "'. Exit code: " + to_string(exit_code));
+        }
+
+        return output;
+    }
+
+    boost::filesystem::path create_tmpdir() {
+        boost::filesystem::path tmpdir = boost::filesystem::temp_directory_path();
+        srand(time(NULL));
+        tmpdir /= to_string(rand() % 1000000);
+
+        if (!boost::filesystem::create_directory(tmpdir)) {
+            throw runtime_error("failed to create temporary directory");
+        }
+
+        return tmpdir;
+    }
+
+    void check_path_existence(boost::filesystem::path path) {
+        if (!boost::filesystem::exists(path)) {
+            throw runtime_error("Error. File '" + path.string() + "' not found");
+        }
     }
 }
