@@ -157,12 +157,10 @@ vector<int> CR::find_indexes(const string& s) {
     }
 
     sort(retval.begin(), retval.end());
+    retval.erase(unique(retval.begin(), retval.end()), retval.end());
 
-    string debug_string = "";
-    for (auto i : retval) {
-        debug_string += to_string(i) + ", ";
-    }
-    debug(debug_string);
+    debug("Found " + to_string(retval.size()) + " occurrences.");
+    debug(retval);
 
     return retval;
 }
@@ -178,25 +176,53 @@ vector<string> CR::find_reads(const string& s) {
         retval.push_back(this->fm_index.extract(i.first, this->read_length));
     }
 
+    sort(retval.begin(), retval.end());
+    retval.erase(unique(retval.begin(), retval.end()), retval.end());
+
     debug("Found " + to_string(retval.size()) + " occurrences.");
-
-    //sort(retval.begin(), retval.end());
-
-    string debug_string = "";
-    for (auto i : retval) {
-        debug_string += i + '\n';
-    }
-    debug(debug_string);
+    debug(retval);
 
     return retval;
 }
 
 void CR::debug(string msg) {
-    if (CR::verbose) {
-        cout << msg << endl;
+    if (!CR::verbose) {
+        return;
     }
+
+    cout << msg << endl;
+
     return;
 }
+
+void CR::debug(vector<string> msg) {
+    if (!CR::verbose) {
+        return;
+    }
+
+    string debug_string = "";
+    for (auto i : msg) {
+        debug_string += i + '\n';
+    }
+    cout << debug_string << endl;
+
+    return;
+}
+
+void CR::debug(vector<int> msg) {
+    if (!CR::verbose) {
+        return;
+    }
+
+    string debug_string = "";
+    for (auto i : msg) {
+        debug_string += to_string(i) + ", ";
+    }
+    cout << debug_string << endl;
+
+    return;
+}
+
 
 void CR::info(string msg) {
     cout << msg << endl;

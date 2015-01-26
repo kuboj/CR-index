@@ -43,5 +43,7 @@ class CR {
         vector<pair<int, int>> locate_positions(string s);
 
         static void debug(string msg);
+        static void debug(vector<string> msg);
+        static void debug(vector<int> msg);
         static void info(string msg);
 };
