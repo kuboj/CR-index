@@ -12,6 +12,7 @@ typedef csa_wt<wt_huff<rrr_vector<127> >, 512, 1024> fm_index_type;
 
 class FMWrapper {
     public:
+        FMWrapper();
         FMWrapper(string data);
         vector<int> locate(string query);
         string extract(int start, int length);

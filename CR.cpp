@@ -4,15 +4,16 @@ using namespace std;
 
 const bool CR::DEFAULT_VERBOSITY = false;
 const int CR::DEFAULT_READ_LENGTH = 100;
+bool CR::verbose = CR::DEFAULT_VERBOSITY;
 
 CR::CR(string p, int rl, bool v) {
     this->positions = vector<pair<int, int>>();
     this->read_length = rl;
-    verbose = v;
+    CR::verbose = v;
 
     string superstring;
 
-    tie(superstring, this->positions) = preprocess(p);
+    tie(superstring, this->positions) = preprocess(p, v);
     this->fm_index = FMWrapper(superstring);
     sort(this->positions.begin(), this->positions.end());
     superstring.clear();
@@ -21,14 +22,15 @@ CR::CR(string p, int rl, bool v) {
 CR::CR(string superstring, vector<pair<int, int>> p, int rl, bool v) {
     this->positions = p;
     this->read_length = rl;
-    verbose = v;
+    CR::verbose = v;
 
     this->fm_index = FMWrapper(superstring);
     sort(this->positions.begin(), this->positions.end());
     superstring.clear();
 }
 
-pair<string, vector<pair<int, int>>> CR::preprocess(string p) {
+pair<string, vector<pair<int, int>>> CR::preprocess(string p, bool v) {
+    CR::verbose = v;
     vector<pair<int, int>> _positions = vector<pair<int, int>>();
 
     boost::filesystem::path genome_path = boost::filesystem::path(p);
@@ -227,6 +229,8 @@ vector<string> CR::find_reads(const string& s) {
         retval.push_back(this->fm_index.extract(i.first, this->read_length));
     }
 
+    debug("Found " + to_string(retval.size()) + " occurrences.");
+
     //sort(retval.begin(), retval.end());
 
     string debug_string = "";
@@ -239,7 +243,7 @@ vector<string> CR::find_reads(const string& s) {
 }
 
 void CR::debug(string msg) {
-    if (verbose) {
+    if (CR::verbose) {
         cout << msg << endl;
     }
     return;

@@ -33,7 +33,8 @@ class CR {
         vector<string> find_reads(const string& s);
         ~CR();
 
-        static pair<string, vector<pair<int, int>>> preprocess(string path);
+        static pair<string, vector<pair<int, int>>> preprocess(string path,
+                bool verbose = DEFAULT_VERBOSITY);
 
     private:
         int read_length;

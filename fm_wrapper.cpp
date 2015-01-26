@@ -2,6 +2,10 @@
 
 using namespace std;
 
+FMWrapper::FMWrapper() {
+
+}
+
 FMWrapper::FMWrapper(string data) {
     fm_index_type fm;
     sdsl::construct_im(fm, data.c_str(), 1);
