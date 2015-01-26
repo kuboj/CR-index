@@ -202,7 +202,7 @@ vector<pair<int, int>> CR::locate_positions(string s) {
 }
 
 vector<int> CR::find_indexes(const string& s) {
-    boost::algorithm::trim(s);
+    boost::algorithm::trim_copy(s);
     vector<int> retval;
 
     for (auto i : this->locate_positions(s)) {
@@ -224,7 +224,7 @@ vector<int> CR::find_indexes(const string& s) {
 }
 
 vector<string> CR::find_reads(const string& s) {
-    boost::algorithm::trim(s);
+    boost::algorithm::trim_copy(s);
     vector<string> retval;
 
     for (auto i : this->locate_positions(s)) {

@@ -7,4 +7,4 @@ default:
 	$(CCP) $(CFLAGS) -w -o CR_example CR_example.cpp CR.cpp $(LIBS)
 	
 clean:
-	rm -f *~ *.o
+	rm -f *~ *.o CR_example
