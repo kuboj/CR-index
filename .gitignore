@@ -8,15 +8,6 @@ heaptrack.*
 # genome folder
 genomes
 
-# built libraries
-libdivsufsort/build/
-libcds/includes/*
-!lib/includes/delete_me
-libcds/tests/*
-!libcds/tests/*.cpp
-!libcds/tests/*.py
-!libcds/tests/Makefile
-
 # logs
 *.log
 
