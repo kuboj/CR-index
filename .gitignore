@@ -1,6 +1,9 @@
 # other junk
 *.data
 tmp
+build
+lib/*
+bin/*
 
 # sga files
 *.hits.gz
