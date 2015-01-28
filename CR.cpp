@@ -7,8 +7,8 @@ const int CR::DEFAULT_READ_LENGTH = 100;
 bool CR::verbose = CR::DEFAULT_VERBOSITY;
 
 CR::CR(string p, int rl, bool v) {
-    this->positions = vector<pair<int, int>>();
-    this->diff = vector<tuple<int, int, char>>();
+    this->positions = vector<t_pos>();
+    this->diff = vector<t_diff>();
     this->read_length = rl;
     CR::verbose = v;
 
@@ -20,8 +20,7 @@ CR::CR(string p, int rl, bool v) {
     superstring.clear();
 }
 
-CR::CR(string superstring, vector<pair<int, int>> p,
-        vector<tuple<int, int, char>> d, int rl, bool v) {
+CR::CR(string superstring, vector<t_pos> p, vector<t_diff> d, int rl, bool v) {
     this->positions = p;
     this->diff = d;
     this->read_length = rl;
@@ -32,11 +31,10 @@ CR::CR(string superstring, vector<pair<int, int>> p,
     superstring.clear();
 }
 
-tuple<string, vector<pair<int, int>>, vector<tuple<int, int, char>>>
-CR::preprocess(string p, bool v) {
+tuple<string, vector<t_pos>, vector<t_diff>> CR::preprocess(string p, bool v) {
     CR::verbose = v;
-    vector<pair<int, int>> _positions = vector<pair<int, int>>();
-    vector<tuple<int, int, char>> _diff = vector<tuple<int, int, char>>();
+    vector<t_pos> _positions = vector<t_pos>();
+    vector<t_diff> _diff = vector<t_diff>();
 
     boost::filesystem::path orig_reads_path = boost::filesystem::path(p);
 
@@ -170,15 +168,14 @@ CR::preprocess(string p, bool v) {
 
         if (matches.size() == 0 && matches2.size() == 0) {
             missing_read_count++;
-            _positions.push_back(pair<int, int>(superstring.length(),
-                    read_count));
+            _positions.push_back(make_tuple(superstring.length(), read_count, 0));
             superstring += read;
         } else {
             for (int m : matches) {
-                _positions.push_back(pair<int, int>(m, read_count));
+                _positions.push_back(make_tuple(m, read_count, 0));
             }
             for (int m : matches2) {
-                _positions.push_back(pair<int, int>(m, read_count));
+                _positions.push_back(make_tuple(m, read_count, 1));
             }
         }
 
@@ -200,8 +197,8 @@ CR::preprocess(string p, bool v) {
     return make_tuple(superstring, _positions, _diff);
 }
 
-vector<pair<int, int>> CR::locate_positions(const string& s) {
-    vector<pair<int, int>> retval;
+vector<t_pos> CR::locate_positions(const string& s) {
+    vector<t_pos> retval;
     vector<int> indexes = this->fm_index.locate(s);
 
     debug("Locate_positions: indexes count: " + to_string(indexes.size()));
@@ -209,34 +206,34 @@ vector<pair<int, int>> CR::locate_positions(const string& s) {
 
     for (auto i : indexes) {
         debug("Processed " + to_string(processed++));
-        pair<int, int> start_index(i + s.length() - this->read_length, -1);
-        pair<int, int> end_index(i, numeric_limits<int>::max());
+        t_pos start_index(i + s.length() - this->read_length, -1, 0);
+        t_pos end_index(i, numeric_limits<int>::max(), 1);
         auto low = lower_bound(this->positions.begin(), this->positions.end(), start_index);
         auto up = upper_bound(this->positions.begin(), this->positions.end(), end_index);
         for (auto it = low; it != up; it++) {
             // drop false positives
-            int pos = it->first;
-            int read_id = it->second;
+            int pos = get<0>(*it);
+            int read_id = get<1>(*it);
+            bool rev_compl = get<2>(*it);
 
-            tuple<int, int, char> start_index2(read_id, -1 , 'a');
-            tuple<int, int, char> end_index2(read_id, numeric_limits<int>::max() , 'a');
+            t_diff start_index2(read_id, -1 , 'A');
+            t_diff end_index2(read_id, numeric_limits<int>::max() , 'A');
             auto low2 = lower_bound(this->diff.begin(), this->diff.end(), start_index2);
             auto up2 = upper_bound(this->diff.begin(), this->diff.end(), end_index2);
 
             string orig_read = this->fm_index.extract(pos, this->read_length);
+            if (rev_compl) {
+                orig_read = cr_util::rev_compl(orig_read);
+            }
             for (auto it2 = low2; it2 != up2; it2++) {
-                if (read_id == 244 || read_id == 791) {
-                    cout << "KOKOOOOT" << endl;
-                    cout << orig_read.substr(max(0, get<1>(*it2)-5), 10) << endl;
-                }
                 orig_read[get<1>(*it2)] = get<2>(*it2);
-                if (read_id == 244 || read_id == 791) {
-                    cout << orig_read.substr(max(0, get<1>(*it2)-5), 10) << endl;
-                    cout << "------\n";
-                }
             }
 
-            if (orig_read.find(s) != string::npos) {
+            string p = s;
+            if (rev_compl) {
+                p = cr_util::rev_compl(s);
+            }
+            if (orig_read.find(p) != string::npos) {
                 retval.push_back(*it);
             }
         }
@@ -250,10 +247,10 @@ vector<int> CR::find_indexes(const string& s) {
     vector<int> retval;
 
     for (auto i : this->locate_positions(s)) {
-        retval.push_back(i.second);
+        retval.push_back(get<1>(i));
     }
     for (auto i : this->locate_positions(cr_util::rev_compl(s))) {
-        retval.push_back(i.second);
+        retval.push_back(get<1>(i));
     }
 
     sort(retval.begin(), retval.end());
@@ -270,10 +267,10 @@ vector<string> CR::find_reads(const string& s) {
     vector<string> retval;
 
     for (auto i : this->locate_positions(s)) {
-        retval.push_back(this->fm_index.extract(i.first, this->read_length));
+        retval.push_back(this->fm_index.extract(get<0>(i), this->read_length));
     }
     for (auto i : this->locate_positions(cr_util::rev_compl(s))) {
-        retval.push_back(this->fm_index.extract(i.first, this->read_length));
+        retval.push_back(this->fm_index.extract(get<0>(i), this->read_length));
     }
 
     sort(retval.begin(), retval.end());
