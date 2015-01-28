@@ -5,13 +5,13 @@
 #include <vector>
 #include <string>
 #include <utility>
-#include "CR.hpp"
 #include <boost/algorithm/string.hpp>
+#include "cr_index.hpp"
 
 using namespace std;
 
 void test1(string genome_filename) {
-    CR rm = CR(genome_filename, 100, true);
+    CRIndex rm = CRIndex(genome_filename, 100, true);
 
     string ll;
     while(cin) {

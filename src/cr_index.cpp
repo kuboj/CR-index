@@ -1,16 +1,16 @@
-#include "CR.hpp"
+#include "cr_index.hpp"
 
 using namespace std;
 
-const bool CR::DEFAULT_VERBOSITY = false;
-const int CR::DEFAULT_READ_LENGTH = 100;
-bool CR::verbose = CR::DEFAULT_VERBOSITY;
+const bool CRIndex::DEFAULT_VERBOSITY = false;
+const int CRIndex::DEFAULT_READ_LENGTH = 100;
+bool CRIndex::verbose = CRIndex::DEFAULT_VERBOSITY;
 
-CR::CR(string p, int rl, bool v) {
+CRIndex::CRIndex(string p, int rl, bool v) {
     this->positions = vector<t_pos>();
     this->diff = vector<t_diff>();
     this->read_length = rl;
-    CR::verbose = v;
+    CRIndex::verbose = v;
 
     string superstring;
 
@@ -20,19 +20,19 @@ CR::CR(string p, int rl, bool v) {
     superstring.clear();
 }
 
-CR::CR(string superstring, vector<t_pos> p, vector<t_diff> d, int rl, bool v) {
+CRIndex::CRIndex(string superstring, vector<t_pos> p, vector<t_diff> d, int rl, bool v) {
     this->positions = p;
     this->diff = d;
     this->read_length = rl;
-    CR::verbose = v;
+    CRIndex::verbose = v;
 
     this->fm_index = FMWrapper(superstring);
     sort(this->positions.begin(), this->positions.end());
     superstring.clear();
 }
 
-tuple<string, vector<t_pos>, vector<t_diff>> CR::preprocess(string p, bool v) {
-    CR::verbose = v;
+tuple<string, vector<t_pos>, vector<t_diff>> CRIndex::preprocess(string p, bool v) {
+    CRIndex::verbose = v;
     vector<t_pos> _positions = vector<t_pos>();
     vector<t_diff> _diff = vector<t_diff>();
 
@@ -197,7 +197,7 @@ tuple<string, vector<t_pos>, vector<t_diff>> CR::preprocess(string p, bool v) {
     return make_tuple(superstring, _positions, _diff);
 }
 
-vector<t_pos> CR::locate_positions2(const string& s, const string& s_check) {
+vector<t_pos> CRIndex::locate_positions2(const string& s, const string& s_check) {
     vector<t_pos> retval;
     vector<int> indexes = this->fm_index.locate(s);
 
@@ -238,7 +238,7 @@ vector<t_pos> CR::locate_positions2(const string& s, const string& s_check) {
     return retval;
 }
 
-vector<t_pos> CR::locate_positions(const string& s) {
+vector<t_pos> CRIndex::locate_positions(const string& s) {
     vector<t_pos> retval = locate_positions2(s, s);
 
     for (string s2 : cr_util::strings_with_edt1(s)) {
@@ -249,7 +249,7 @@ vector<t_pos> CR::locate_positions(const string& s) {
     return retval;
 }
 
-vector<int> CR::find_indexes(const string& s) {
+vector<int> CRIndex::find_indexes(const string& s) {
     boost::algorithm::trim_copy(s);
     vector<int> retval;
 
@@ -269,7 +269,7 @@ vector<int> CR::find_indexes(const string& s) {
     return retval;
 }
 
-vector<string> CR::find_reads(const string& s) {
+vector<string> CRIndex::find_reads(const string& s) {
     boost::algorithm::trim_copy(s);
     vector<string> retval;
 
@@ -289,8 +289,8 @@ vector<string> CR::find_reads(const string& s) {
     return retval;
 }
 
-void CR::debug(string msg) {
-    if (!CR::verbose) {
+void CRIndex::debug(string msg) {
+    if (!CRIndex::verbose) {
         return;
     }
 
@@ -299,8 +299,8 @@ void CR::debug(string msg) {
     return;
 }
 
-void CR::debug(vector<string> msg) {
-    if (!CR::verbose) {
+void CRIndex::debug(vector<string> msg) {
+    if (!CRIndex::verbose) {
         return;
     }
 
@@ -313,8 +313,8 @@ void CR::debug(vector<string> msg) {
     return;
 }
 
-void CR::debug(vector<int> msg) {
-    if (!CR::verbose) {
+void CRIndex::debug(vector<int> msg) {
+    if (!CRIndex::verbose) {
         return;
     }
 
@@ -328,11 +328,11 @@ void CR::debug(vector<int> msg) {
 }
 
 
-void CR::info(string msg) {
+void CRIndex::info(string msg) {
     cout << msg << endl;
     return;
 }
 
-CR::~CR() {
+CRIndex::~CRIndex() {
     //
 }

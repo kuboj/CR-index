@@ -23,6 +23,13 @@ clean:
 	@echo " Cleaning..."; 
 	@echo " $(RM) -r $(BUILDDIR) bin/*"; $(RM) -r $(BUILDDIR) bin/*
 
+examples: $(EXAMPLES)
+
 $(EXAMPLES): $(OBJECTS)
 	@echo " Building examples...";
 	@echo " $(CC) $(CFLAGS) $^ -o bin/$@ examples/$@.$(SRCEXT) $(INC) $(LIB)"; $(CC) $(CFLAGS) $^ -o bin/$@ examples/$@.$(SRCEXT) $(INC) $(LIB)
+
+correctness: $(OBJECTS)
+	@echo " $(CC) $(CFLAGS) $^ -o bin/$@ tools/$@.$(SRCEXT) $(INC) $(LIB)"; $(CC) $(CFLAGS) $^ -o bin/$@ tools/$@.$(SRCEXT) $(INC) $(LIB)
+
+

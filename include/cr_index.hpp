@@ -21,20 +21,20 @@ using namespace std;
 typedef tuple<int, int, bool> t_pos;
 typedef tuple<int, int, char> t_diff;
 
-class CR {
+class CRIndex {
     public:
         static const bool DEFAULT_VERBOSITY;
         static const int DEFAULT_READ_LENGTH;
         static bool verbose;
 
-        CR(string path, int read_length = DEFAULT_READ_LENGTH,
+        CRIndex(string path, int read_length = DEFAULT_READ_LENGTH,
                 bool verbose = DEFAULT_VERBOSITY);
-        CR(string superstring, vector<t_pos> positions, vector<t_diff> diff,
+        CRIndex(string superstring, vector<t_pos> positions, vector<t_diff> diff,
                 int read_length = DEFAULT_READ_LENGTH,
                 bool verbose = DEFAULT_VERBOSITY);
         vector<int> find_indexes(const string& s);
         vector<string> find_reads(const string& s);
-        ~CR();
+        ~CRIndex();
 
         static tuple<string, vector<t_pos>, vector<t_diff>>
                      preprocess(string path, bool verbose = DEFAULT_VERBOSITY);
