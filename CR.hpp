@@ -7,6 +7,7 @@
 #include <limits>
 #include <iostream>
 #include <fstream>
+#include <tuple>
 #include <time.h>
 #include <exception>
 #include <stdexcept>
@@ -17,6 +18,9 @@
 
 using namespace std;
 
+typedef tuple<int, int, bool> t_pos;
+typedef tuple<int, int, char> t_diff;
+
 class CR {
     public:
         static const bool DEFAULT_VERBOSITY;
@@ -25,22 +29,24 @@ class CR {
 
         CR(string path, int read_length = DEFAULT_READ_LENGTH,
                 bool verbose = DEFAULT_VERBOSITY);
-        CR(string superstring, vector<pair<int, int>> positions,
+        CR(string superstring, vector<t_pos> positions, vector<t_diff> diff,
                 int read_length = DEFAULT_READ_LENGTH,
                 bool verbose = DEFAULT_VERBOSITY);
         vector<int> find_indexes(const string& s);
         vector<string> find_reads(const string& s);
         ~CR();
 
-        static pair<string, vector<pair<int, int>>> preprocess(string path,
-                bool verbose = DEFAULT_VERBOSITY);
+        static tuple<string, vector<t_pos>, vector<t_diff>>
+                     preprocess(string path, bool verbose = DEFAULT_VERBOSITY);
 
     private:
         int read_length;
-        vector<pair<int, int>> positions;
+        vector<t_pos> positions;
+        vector<t_diff> diff;
         FMWrapper fm_index;
 
-        vector<pair<int, int>> locate_positions(string s);
+        vector<t_pos> locate_positions(const string& s);
+        vector<t_pos> locate_positions2(const string& s, const string& check_s);
 
         static void debug(string msg);
         static void debug(vector<string> msg);
