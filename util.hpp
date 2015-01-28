@@ -16,4 +16,6 @@ namespace cr_util {
     string execute_command(const string &command);
     boost::filesystem::path create_tmpdir();
     void check_path_existence(boost::filesystem::path path);
+    vector<int> diff_indexes(const string& s1, const string& s2);
+    bool indexes_close(vector<int> indexes, int k);
 }

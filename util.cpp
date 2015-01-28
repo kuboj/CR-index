@@ -87,10 +87,10 @@ namespace cr_util {
     string execute_command(const string &command) {
         string output;
 
-        redi::ipstream ips(command);
+        redi::ipstream ips(command + " 2>&1");
         string l;
         while (getline(ips, l)) {
-            output += l + '\n';
+            output += "  " + l + '\n';
         }
         ips.close();
         int exit_code = ips.rdbuf()->status();
@@ -118,5 +118,34 @@ namespace cr_util {
         if (!boost::filesystem::exists(path)) {
             throw runtime_error("Error. File '" + path.string() + "' not found");
         }
+    }
+
+    vector<int> diff_indexes(const string& s1, const string& s2) {
+        if (s1.size() != s2.size()) {
+            throw runtime_error("strings have different length");
+        }
+        vector<int> retval;
+        for (int i = 0; i < s1.size(); i++) {
+            if (s1[i] != s2[i]) {
+                retval.push_back(i);
+            }
+        }
+
+        return retval;
+    }
+
+    bool indexes_close(vector<int> indexes, int k) {
+        if (indexes.size() < 2) {
+            return false;
+        }
+
+        sort(indexes.begin(), indexes.end());
+        for (int i = 0; i < indexes.size() - 1; i++) {
+            if (indexes[i + 1] - indexes[i] < k) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
