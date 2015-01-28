@@ -5,7 +5,7 @@ using namespace std;
 namespace cr_util {
     // TODO: modify this when taking into account reads with uNknowns etc. (R, ... )
     bool check_read(const string& r) {
-        for (int i = 0; i < r.size(); i++) {
+        for (size_t i = 0; i < r.size(); i++) {
             if ((r[i] != 'A') &&
                     (r[i] != 'C') &&
                     (r[i] != 'T') &&
@@ -19,7 +19,7 @@ namespace cr_util {
 
     // TODO: modify this when taking into account reads with uNknowns etc. (R, ... )
     bool check_contig(const string& c) {
-        for (int i = 0; i < c.size(); i++) {
+        for (size_t i = 0; i < c.size(); i++) {
             if ((c[i] != 'A') &&
                     (c[i] != 'C') &&
                     (c[i] != 'T') &&
@@ -33,7 +33,7 @@ namespace cr_util {
 
     string rev_compl(const string& s) {
         string rc = "";
-        for (int i = 0; i < s.length(); i++) {
+        for (size_t i = 0; i < s.length(); i++) {
             switch (s[i]) {
             case 'A':
                 rc += 'T';
@@ -125,7 +125,7 @@ namespace cr_util {
             throw runtime_error("strings have different length");
         }
         vector<int> retval;
-        for (int i = 0; i < s1.size(); i++) {
+        for (size_t i = 0; i < s1.size(); i++) {
             if (s1[i] != s2[i]) {
                 retval.push_back(i);
             }
@@ -140,7 +140,7 @@ namespace cr_util {
         }
 
         sort(indexes.begin(), indexes.end());
-        for (int i = 0; i < indexes.size() - 1; i++) {
+        for (size_t i = 0; i < indexes.size() - 1; i++) {
             if (indexes[i + 1] - indexes[i] < k) {
                 return true;
             }
@@ -153,8 +153,8 @@ namespace cr_util {
         vector<string> retval;
         string chars = "ACTG";
 
-        for (int i = 0; i < s.size(); i++) {
-            for (int j = 0; j < chars.size(); j++) {
+        for (size_t i = 0; i < s.size(); i++) {
+            for (size_t j = 0; j < chars.size(); j++) {
                 string s2 = s;
                 s2[i] = chars[j];
                 if (s != s2) {

@@ -201,11 +201,7 @@ vector<t_pos> CR::locate_positions2(const string& s, const string& s_check) {
     vector<t_pos> retval;
     vector<int> indexes = this->fm_index.locate(s);
 
-    //debug("Locate_positions: indexes count: " + to_string(indexes.size()));
-    int processed = 0;
-
     for (auto i : indexes) {
-        //debug("Processed " + to_string(processed++));
         t_pos start_index(i + s.length() - this->read_length, -1, 0);
         t_pos end_index(i, numeric_limits<int>::max(), 1);
         auto low = lower_bound(this->positions.begin(), this->positions.end(), start_index);
