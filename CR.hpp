@@ -46,6 +46,7 @@ class CR {
         FMWrapper fm_index;
 
         vector<t_pos> locate_positions(const string& s);
+        vector<t_pos> locate_positions2(const string& s, const string& check_s);
 
         static void debug(string msg);
         static void debug(vector<string> msg);

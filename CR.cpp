@@ -197,15 +197,15 @@ tuple<string, vector<t_pos>, vector<t_diff>> CR::preprocess(string p, bool v) {
     return make_tuple(superstring, _positions, _diff);
 }
 
-vector<t_pos> CR::locate_positions(const string& s) {
+vector<t_pos> CR::locate_positions2(const string& s, const string& s_check) {
     vector<t_pos> retval;
     vector<int> indexes = this->fm_index.locate(s);
 
-    debug("Locate_positions: indexes count: " + to_string(indexes.size()));
+    //debug("Locate_positions: indexes count: " + to_string(indexes.size()));
     int processed = 0;
 
     for (auto i : indexes) {
-        debug("Processed " + to_string(processed++));
+        //debug("Processed " + to_string(processed++));
         t_pos start_index(i + s.length() - this->read_length, -1, 0);
         t_pos end_index(i, numeric_limits<int>::max(), 1);
         auto low = lower_bound(this->positions.begin(), this->positions.end(), start_index);
@@ -229,14 +229,25 @@ vector<t_pos> CR::locate_positions(const string& s) {
                 orig_read[get<1>(*it2)] = get<2>(*it2);
             }
 
-            string p = s;
+            string p = s_check;
             if (rev_compl) {
-                p = cr_util::rev_compl(s);
+                p = cr_util::rev_compl(s_check);
             }
             if (orig_read.find(p) != string::npos) {
                 retval.push_back(*it);
             }
         }
+    }
+
+    return retval;
+}
+
+vector<t_pos> CR::locate_positions(const string& s) {
+    vector<t_pos> retval = locate_positions2(s, s);
+
+    for (string s2 : cr_util::strings_with_edt1(s)) {
+        vector<t_pos> temp = locate_positions2(s2, s);
+        retval.insert(retval.end(), temp.begin(), temp.end());
     }
 
     return retval;

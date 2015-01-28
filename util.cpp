@@ -148,4 +148,21 @@ namespace cr_util {
 
         return false;
     }
+
+    vector<string> strings_with_edt1(const string& s) {
+        vector<string> retval;
+        string chars = "ACTG";
+
+        for (int i = 0; i < s.size(); i++) {
+            for (int j = 0; j < chars.size(); j++) {
+                string s2 = s;
+                s2[i] = chars[j];
+                if (s != s2) {
+                    retval.push_back(s2);
+                }
+            }
+        }
+
+        return retval;
+    }
 }
