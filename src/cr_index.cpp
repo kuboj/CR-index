@@ -212,8 +212,8 @@ vector<t_pos> CRIndex::locate_positions2(const string& s, const string& s_check)
             int read_id = get<1>(*it);
             bool rev_compl = get<2>(*it);
 
-            t_diff start_index2(read_id, -1 , 'A');
-            t_diff end_index2(read_id, numeric_limits<int>::max() , 'A');
+            t_diff start_index2(read_id, -1, 'A');
+            t_diff end_index2(read_id, numeric_limits<int>::max(), 'A');
             auto low2 = lower_bound(this->diff.begin(), this->diff.end(), start_index2);
             auto up2 = upper_bound(this->diff.begin(), this->diff.end(), end_index2);
 
@@ -274,10 +274,20 @@ vector<string> CRIndex::find_reads(const string& s) {
     vector<string> retval;
 
     for (auto i : this->locate_positions(s)) {
-        retval.push_back(this->fm_index.extract(get<0>(i), this->read_length));
+        if (get<2>(i)) {
+            retval.push_back(cr_util::rev_compl(
+                    this->fm_index.extract(get<0>(i), this->read_length)));
+        } else {
+            retval.push_back(this->fm_index.extract(get<0>(i), this->read_length));
+        }
     }
     for (auto i : this->locate_positions(cr_util::rev_compl(s))) {
-        retval.push_back(this->fm_index.extract(get<0>(i), this->read_length));
+        if (get<2>(i)) {
+            retval.push_back(cr_util::rev_compl(
+                    this->fm_index.extract(get<0>(i), this->read_length)));
+        } else {
+            retval.push_back(this->fm_index.extract(get<0>(i), this->read_length));
+        }
     }
 
     sort(retval.begin(), retval.end());

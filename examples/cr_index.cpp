@@ -17,8 +17,8 @@ void test1(string genome_filename) {
     while(cin) {
         cout << "waiting for input: " << endl;
         getline(cin, ll);
-        //rm.find_reads(ll);
-        rm.find_indexes(ll);
+        rm.find_reads(ll);
+        //rm.find_indexes(ll);
     }
 }
 

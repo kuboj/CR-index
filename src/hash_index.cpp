@@ -58,16 +58,10 @@ vector<string> HashIndex::find_reads(const string& s) {
 
     vector<string> retval;
     for (int i : find_indexes(s)) {
-        if (i == 622 || i == 351) {
-            cout << "HI " << i << " " << this->reads[i] << endl;
-        }
         retval.push_back(this->reads[i]);
     }
     for (int i : find_indexes(cr_util::rev_compl(s))) {
         retval.push_back(this->reads[i]);
-        if (i == 622 || i == 351) {
-            cout << "HI " << i << " " << this->reads[i] << endl;
-        }
     }
     sort(retval.begin(), retval.end());
     retval.erase(unique(retval.begin(), retval.end()), retval.end());
