@@ -47,6 +47,7 @@ class CRIndex {
 
         vector<t_pos> locate_positions(const string& s);
         vector<t_pos> locate_positions2(const string& s, const string& check_s);
+        string extract_original_read(t_pos read);
 
         static void debug(string msg);
         static void debug(vector<string> msg);
