@@ -33,16 +33,11 @@ bool query_ok(CRIndex *cr, HashIndex *hi, const string& query) {
 
     if (cr_indexes.size() + hi_indexes.size() + cr_reads.size() + hi_reads.size() != 0) {
         cout << "testing query: " << query << endl;
-        cout << cr_indexes.size() << endl;
-        cout << hi_indexes.size() << endl;
-        cout << cr_reads.size() << endl;
-        cout << hi_reads.size() << endl;
+//        cout << cr_indexes.size() << endl;
+//        cout << hi_indexes.size() << endl;
+//        cout << cr_reads.size() << endl;
+//        cout << hi_reads.size() << endl;
     }
-
-    cout << "CR:" << endl;
-    print(cr_reads);
-    cout << "HI:" << endl;
-    print(hi_reads);
 
     return (cr_indexes.size() == hi_indexes.size() &&
             cr_reads.size() == hi_reads.size() &&
@@ -51,8 +46,9 @@ bool query_ok(CRIndex *cr, HashIndex *hi, const string& query) {
 }
 
 vector<string> generate_queries(int num_of_queries, int query_length) {
-    vector<string> retval = { "TGTCCACCTCAGA" };
-    return retval;
+    vector<string> retval; // = { "TGTCCACCTCAGA" };
+    //vector<string> retval = { "GGGTTTTTCCTAA" };
+    //return retval;
 
     srand(time(NULL));
     string chars = "ACTG";
