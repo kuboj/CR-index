@@ -177,9 +177,15 @@ tuple<string, vector<t_pos>, vector<t_diff>> CRIndex::preprocess(string p, bool 
         } else {
             for (int m : matches) {
                 _positions.push_back(make_tuple(m, read_count, 0));
+                if (read_count == 581) {
+                    cout << "581 " << m << endl;
+                }
             }
             for (int m : matches2) {
                 _positions.push_back(make_tuple(m, read_count, 1));
+                if (read_count == 581) {
+                    cout << "581 " << m << " revcompl" << endl;
+                }
             }
         }
 
