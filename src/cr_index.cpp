@@ -54,12 +54,15 @@ tuple<string, vector<t_pos>, vector<t_diff>> CRIndex::preprocess(string p, bool 
             p_tmpdir.string() + ".ec.fa");
     cr_util::check_path_existence(corr_reads_path);
 
-    boost::filesystem::path ncrit_reads_path = boost::filesystem::path(
-                p_tmpdir.string() + ".ncrit");
+    boost::filesystem::path corr_ncrit_reads_path = boost::filesystem::path(
+                p_tmpdir.string() + ".ncrit.corr");
+    boost::filesystem::path orig_crit_reads_path = boost::filesystem::path(
+                p_tmpdir.string() + ".crit");
 
     ifstream orig_reads_istream(orig_reads_path.string());
     ifstream corr_reads_istream(corr_reads_path.string());
-    ofstream ncrit_reads_ostream(ncrit_reads_path.string());
+    ofstream corr_ncrit_reads_ostream(corr_ncrit_reads_path.string());
+    ofstream orig_crit_reads_ostream(orig_crit_reads_path.string());
 
     string orig_read;
     string corr_read;
@@ -84,18 +87,18 @@ tuple<string, vector<t_pos>, vector<t_diff>> CRIndex::preprocess(string p, bool 
         boost::algorithm::trim(orig_read);
         boost::algorithm::trim(corr_read);
         vector<int> diff_indexes = cr_util::diff_indexes(orig_read, corr_read);
+        int read_id = read_count;
         if (diff_indexes.size() >= 2 && cr_util::indexes_close(diff_indexes, 15)) {
-            int read_id = read_count;
-            for (int i : diff_indexes) {
-                _diff.push_back(make_tuple(read_id, i, orig_read[i]));
-            }
+            orig_crit_reads_ostream << read_label << endl;
+            orig_crit_reads_ostream << orig_read << endl;
+            orig_crit_reads_ostream << read_meta << endl;
+            orig_crit_reads_ostream << read_q << endl;
             crit_count += 1;
         } else {
-            ncrit_reads_ostream << read_label << endl;
-            ncrit_reads_ostream << corr_read << endl;
-            ncrit_reads_ostream << read_meta << endl;
-            ncrit_reads_ostream << read_q << endl;
-            int read_id = read_count;
+            corr_ncrit_reads_ostream << read_label << endl;
+            corr_ncrit_reads_ostream << corr_read << endl;
+            corr_ncrit_reads_ostream << read_meta << endl;
+            corr_ncrit_reads_ostream << read_q << endl;
             for (int i : diff_indexes) {
                 _diff.push_back(make_tuple(read_id, i, orig_read[i]));
             }
@@ -104,25 +107,25 @@ tuple<string, vector<t_pos>, vector<t_diff>> CRIndex::preprocess(string p, bool 
 
         read_count++;
     }
-    ncrit_reads_ostream.close();
+    corr_ncrit_reads_ostream.close();
+    orig_crit_reads_ostream.close();
     orig_reads_istream.close();
-    // rewind
-    corr_reads_istream.clear();
-    corr_reads_istream.seekg(0);
+    corr_reads_istream.close();
+
     debug("Total " + to_string(read_count) + " reads. critical: " +
             to_string(crit_count) + " noncritical: " + to_string(ncrit_count));
 
     // rerun sga index with noncritical reads only
     debug("Running sga index");
     debug(cr_util::execute_command("sga index -a ropebwt -c -t 4 -p " +
-            p_tmpdir.string() + " " + ncrit_reads_path.string()));
+            p_tmpdir.string() + " " + corr_ncrit_reads_path.string()));
     debug("Running sga overlap");
     debug(cr_util::execute_command("sga overlap -t 4 -p " +
-            p_tmpdir.string() + " " + ncrit_reads_path.string()));
+            p_tmpdir.string() + " " + corr_ncrit_reads_path.string()));
 
     // get path of overlap file because dickish sga overlap saves it to workdir
     boost::filesystem::path overlap_path = boost::filesystem::path(
-            boost::filesystem::current_path() / (ncrit_reads_path.stem().string() + ".asqg.gz"));
+            boost::filesystem::current_path() / (corr_ncrit_reads_path.stem().string() + ".asqg.gz"));
     cr_util::check_path_existence(overlap_path);
 
     // move overlap file to tmpdir
@@ -144,22 +147,26 @@ tuple<string, vector<t_pos>, vector<t_diff>> CRIndex::preprocess(string p, bool 
     // construct FM-index, find each read in it and add missing reads
     FMWrapper _fm_index = FMWrapper(superstring);
 
-    debug("Querying FM index for reads");
+    debug("Querying FM index for noncritical corrected reads");
     int missing_read_count = 0;
     int total_reads_size = 0;
     string read;
     read_count = 0;
-    int line_count = 0;
     int skipped = 0;
-    while (getline(corr_reads_istream, read)) {
-        if (line_count++ % 4 != 1) {
-            continue;
-        }
+    ifstream corr_ncrit_reads_istream(corr_ncrit_reads_path.string());
+    while (getline(corr_ncrit_reads_istream, read_label)) {
+        getline(corr_ncrit_reads_istream, read);
+        getline(corr_ncrit_reads_istream, read_meta);
+        getline(corr_ncrit_reads_istream, read_q);
+
         boost::algorithm::trim(read);
+        boost::algorithm::trim(read_label);
         if (!cr_util::check_read(read)) {
             skipped++;
             continue;
         }
+
+        int read_id = stoi(read_label.substr(5));
 
         total_reads_size += read.length();
 
@@ -172,20 +179,49 @@ tuple<string, vector<t_pos>, vector<t_diff>> CRIndex::preprocess(string p, bool 
 
         if (matches.size() == 0 && matches2.size() == 0) {
             missing_read_count++;
-            _positions.push_back(make_tuple(superstring.length(), read_count, 0));
+            _positions.push_back(make_tuple(superstring.length(), read_id, 0));
             superstring += read;
         } else {
             for (int m : matches) {
-                _positions.push_back(make_tuple(m, read_count, 0));
+                _positions.push_back(make_tuple(m, read_id, 0));
             }
             for (int m : matches2) {
-                _positions.push_back(make_tuple(m, read_count, 1));
+                _positions.push_back(make_tuple(m, read_id, 1));
             }
         }
 
         read_count++;
     }
-    corr_reads_istream.close();
+    corr_ncrit_reads_istream.close();
+
+    debug("Querying FM index for original critical reads");
+    ifstream orig_crit_reads_istream(orig_crit_reads_path.string());
+    while (getline(orig_crit_reads_istream, read_label)) {
+        getline(orig_crit_reads_istream, read);
+        getline(orig_crit_reads_istream, read_meta);
+        getline(orig_crit_reads_istream, read_q);
+
+        boost::algorithm::trim(read);
+        boost::algorithm::trim(read_label);
+        if (!cr_util::check_read(read)) {
+            skipped++;
+            continue;
+        }
+
+        int read_id = stoi(read_label.substr(5));
+
+        total_reads_size += read.length();
+
+        if (read_count % 10000 == 0) {
+            debug("Processed " + to_string(read_count) + " reads");
+        }
+
+        _positions.push_back(make_tuple(superstring.length(), read_id, 0));
+        superstring += read;
+
+        read_count++;
+    }
+    orig_crit_reads_istream.close();
 
     if (skipped > 0) {
         info("WARNING: skipped " + to_string(skipped) + " reads");
