@@ -85,6 +85,10 @@ tuple<string, vector<t_pos>, vector<t_diff>> CRIndex::preprocess(string p, bool 
         boost::algorithm::trim(corr_read);
         vector<int> diff_indexes = cr_util::diff_indexes(orig_read, corr_read);
         if (diff_indexes.size() >= 2 && cr_util::indexes_close(diff_indexes, 15)) {
+            int read_id = read_count;
+            for (int i : diff_indexes) {
+                _diff.push_back(make_tuple(read_id, i, orig_read[i]));
+            }
             crit_count += 1;
         } else {
             ncrit_reads_ostream << read_label << endl;
