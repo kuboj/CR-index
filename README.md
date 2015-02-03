@@ -11,4 +11,14 @@ Compressed read index - bioinf data structure for fast querying substring in rea
 
 ### Installation
 
-`make` compiles *CR_example.cpp*
+`make examples` compiles examples and all dependencies
+
+# TODO
+
+  * how to measure RAM used?
+    * [http://people.ksp.sk/~johnny64/bordel/referenced_memory_size.cpp]()
+  * write benchmark scripts
+  * implement bloom filter?
+    * [https://github.com/mavam/libbf]()
+    * [https://code.google.com/p/bloom/]()
+    
