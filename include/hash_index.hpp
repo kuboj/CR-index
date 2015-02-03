@@ -8,6 +8,7 @@ using namespace std;
 
 class HashIndex {
     public:
+        HashIndex();
         HashIndex(string reads_path, int query_length = 13, bool save_reads = false);
         vector<int> find_indexes(const string& s);
         vector<string> find_reads(const string& s);

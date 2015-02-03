@@ -3,6 +3,10 @@
 
 using namespace std;
 
+HashIndex::HashIndex() {
+    //
+}
+
 HashIndex::HashIndex(string p, int q, bool sr) {
     this->data = unordered_map<string, vector<int>>();
     this->reads = vector<string>();

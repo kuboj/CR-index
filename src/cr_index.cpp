@@ -147,6 +147,9 @@ tuple<string, vector<t_pos>, vector<t_diff>> CRIndex::preprocess(string p, bool 
     // construct FM-index, find each read in it and add missing reads
     FMWrapper _fm_index = FMWrapper(superstring);
 
+    debug("Superstring size: " + to_string(superstring.size()) + " (before" +
+            " querying)");
+
     debug("Querying FM index for noncritical corrected reads");
     int missing_read_count = 0;
     int total_reads_size = 0;
@@ -304,7 +307,6 @@ vector<string> CRIndex::find_reads(const string& s) {
     for (auto i : this->locate_positions(cr_util::rev_compl(s))) {
         retval.push_back(extract_original_read(i));
     }
-
     sort(retval.begin(), retval.end());
     retval.erase(unique(retval.begin(), retval.end()), retval.end());
 
