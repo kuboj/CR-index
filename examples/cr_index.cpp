@@ -5,20 +5,43 @@
 #include <vector>
 #include <string>
 #include <utility>
+#include <chrono>
 #include <boost/algorithm/string.hpp>
 #include "cr_index.hpp"
 
 using namespace std;
 
 void test1(string genome_filename) {
-    CRIndex rm = CRIndex(genome_filename, 100, true);
+    cout << "Building CRIndex ... " << endl;
+    CRIndex rm = CRIndex(genome_filename, 101, false);
 
     string ll;
+//    vector<string> queries = {"TTTAAAGCTTCAG", "TAATGTCTGGAAT", "TAATTTTTTTATA",
+//                "GTTTTTGGTGAAA", "GTAATGTTGTTTT", "ATATCGACGTCTT", "AAAAAAAAAAAAA"};
     while(cin) {
+//    for (string ll : queries) {
         cout << "waiting for input: " << endl;
         getline(cin, ll);
-        rm.find_reads(ll);
-        //rm.find_indexes(ll);
+        boost::algorithm::trim_copy(ll);
+//        chrono::time_point<std::chrono::system_clock> t1, t2;
+//        chrono::duration<double> elapsed;
+
+//        t1 = chrono::system_clock::now();
+        vector<string> r1 = rm.find_reads(ll);
+        for (string s : r1) {
+            cout << s << endl;
+        }
+
+        cout << endl << endl;
+//        t2 = std::chrono::system_clock::now();
+
+//        elapsed = t2 - t1;
+//        cout << "cr->find_indexes(" << ll << ")  took " << elapsed.count() << endl << endl;
+        vector<int> r2 = rm.find_indexes(ll);
+        for (int i: r2) {
+            cout << i << endl;
+        }
+        // TAATGTCTGGAAT
     }
 }
 

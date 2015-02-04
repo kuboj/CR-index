@@ -13,6 +13,8 @@ HashIndex::HashIndex(string p, int q, bool sr) {
     this->query_length = q;
     this->save_reads = sr;
 
+    cout << "Constructing HashIndex ..." << endl;
+
     ifstream f(p);
     if (!f) {
         cerr << "Error opening " << p << endl;

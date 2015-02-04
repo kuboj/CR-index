@@ -93,7 +93,9 @@ vector<string> generate_random_queries(int num_of_queries, int query_length) {
 
 vector<string> generate_queries_from_file(int num_of_queries, int query_length,
         string reads_filename) {
-//    vector<string> retval = { "AATATTATCGAAA" };
+//    vector<string> retval = {"TTTAAAGCTTCAG", "TAATGTCTGGAAT", "TAATTTTTTTATA",
+//                "GTTTTTGGTGAAA", "GTAATGTTGTTTT", "ATATCGACGTCTT", "AAAAAAAAAAAAA"};
+//    vector<string> retval = { "ATTTTTATTAGAA" };
 //    return retval;
     vector<string> retval;
 
@@ -125,17 +127,18 @@ vector<string> generate_queries_from_file(int num_of_queries, int query_length,
 }
 
 bool test(string reads_filename) {
-    int read_length = 100;
+    //int read_length = 100;
+    int read_length = 101;
     int query_length = 13;
     int num_of_queries = 100000;
 
-    HashIndex hi = HashIndex(reads_filename, query_length, true);
     CRIndex cr = CRIndex(reads_filename, read_length, false);
+    HashIndex hi = HashIndex(reads_filename, query_length, true);
 
     cout << fixed << "Testing " << num_of_queries << " queries of length " <<
             query_length << endl;
-    vector<string> queries = generate_random_queries(num_of_queries,
-            query_length);
+    vector<string> queries = generate_queries_from_file(num_of_queries,
+            query_length, reads_filename);
     int c = 0;
     for (string q : queries) {
         c++;

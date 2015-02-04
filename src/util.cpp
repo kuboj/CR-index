@@ -86,8 +86,10 @@ namespace cr_util {
 
     string execute_command(const string &command) {
         string output;
+        const redi::pstreams::pmode mode = redi::pstreams::pstdout |
+                redi::pstreams::pstderr;
 
-        redi::ipstream ips(command + " 2>&1");
+        redi::ipstream ips(command, mode);
         string l;
         while (getline(ips, l)) {
             output += "  " + l + '\n';

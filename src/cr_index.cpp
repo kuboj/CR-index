@@ -12,6 +12,7 @@ CRIndex::CRIndex(string p, int rl, bool v) {
     this->read_length = rl;
     CRIndex::verbose = v;
 
+    debug("Constructing CRIndex...");
     string superstring;
 
     tie(superstring, this->positions, this->diff) = preprocess(p, v);
@@ -89,16 +90,16 @@ tuple<string, vector<t_pos>, vector<t_diff>> CRIndex::preprocess(string p, bool 
         vector<int> diff_indexes = cr_util::diff_indexes(orig_read, corr_read);
         int read_id = read_count;
         if (diff_indexes.size() >= 2 && cr_util::indexes_close(diff_indexes, 15)) {
-            orig_crit_reads_ostream << read_label << endl;
+            orig_crit_reads_ostream << "@" << read_count << endl;
             orig_crit_reads_ostream << orig_read << endl;
             orig_crit_reads_ostream << read_meta << endl;
-            orig_crit_reads_ostream << read_q << endl;
+            orig_crit_reads_ostream << string(orig_read.size(), '~') << endl;
             crit_count += 1;
         } else {
-            corr_ncrit_reads_ostream << read_label << endl;
+            corr_ncrit_reads_ostream << "@" << read_count << endl;
             corr_ncrit_reads_ostream << corr_read << endl;
             corr_ncrit_reads_ostream << read_meta << endl;
-            corr_ncrit_reads_ostream << read_q << endl;
+            corr_ncrit_reads_ostream << string(corr_read.size(), '~') << endl;
             for (int i : diff_indexes) {
                 _diff.push_back(make_tuple(read_id, i, orig_read[i]));
             }
@@ -169,7 +170,7 @@ tuple<string, vector<t_pos>, vector<t_diff>> CRIndex::preprocess(string p, bool 
             continue;
         }
 
-        int read_id = stoi(read_label.substr(5));
+        int read_id = stoi(read_label.substr(1));
 
         total_reads_size += read.length();
 
@@ -211,7 +212,7 @@ tuple<string, vector<t_pos>, vector<t_diff>> CRIndex::preprocess(string p, bool 
             continue;
         }
 
-        int read_id = stoi(read_label.substr(5));
+        int read_id = stoi(read_label.substr(1));
 
         total_reads_size += read.length();
 
@@ -307,6 +308,7 @@ vector<string> CRIndex::find_reads(const string& s) {
     for (auto i : this->locate_positions(cr_util::rev_compl(s))) {
         retval.push_back(extract_original_read(i));
     }
+
     sort(retval.begin(), retval.end());
     retval.erase(unique(retval.begin(), retval.end()), retval.end());
 
