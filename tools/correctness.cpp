@@ -133,7 +133,7 @@ bool test(string reads_filename) {
     getline(f, l);
     int read_length = l.size();
     int query_length = 13;
-    int num_of_queries = 10000;
+    int num_of_queries = 100000;
 
     CRIndex cr = CRIndex(reads_filename, read_length, false);
     HashIndex hi = HashIndex(reads_filename, query_length, true);
@@ -143,6 +143,11 @@ bool test(string reads_filename) {
     vector<string> queries = generate_queries_from_file(num_of_queries,
             query_length, reads_filename);
     int c = 0;
+
+    chrono::time_point<std::chrono::system_clock> t1, t2;
+    chrono::duration<double> elapsed;
+    t1 = std::chrono::system_clock::now();
+
     for (string q : queries) {
         c++;
         if (c % 100 == 0) {
@@ -153,6 +158,10 @@ bool test(string reads_filename) {
             return false;
         }
     }
+
+    t2 = std::chrono::system_clock::now();
+    elapsed = t2 - t1;
+    cout << num_of_queries << " took " << elapsed.count() << "s" << endl;
 
     return true;
 }
