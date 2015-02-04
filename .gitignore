@@ -1,9 +1,11 @@
 # other junk
+out
 *.data
 tmp
 build
 lib/*
 bin/*
+gmon.out
 
 # sga files
 *.hits.gz
