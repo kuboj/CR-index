@@ -34,45 +34,10 @@ bool print(vector<string> v) {
     return true;
 }
 
-bool query_ok(CRIndex *cr, HashIndex *hi, const string& query) {
-    cout << "testing query: " << query << endl;
-    chrono::time_point<std::chrono::system_clock> t1, t2;
-    chrono::duration<double> elapsed;
-
-    t1 = chrono::system_clock::now();
+bool query_ok(CRIndex *cr, const string& query) {
     vector<int> cr_indexes = cr->find_indexes(query);
-    t2 = std::chrono::system_clock::now();
-    elapsed = t2 - t1;
-    cout << "cr->find_indexes took " << elapsed.count() << endl;
-    dprint(cr_indexes);
 
-    t1 = chrono::system_clock::now();
-    vector<int> hi_indexes = hi->find_indexes(query);
-    t2 = std::chrono::system_clock::now();
-    elapsed = t2 - t1;
-    cout << "hi->find_indexes took " << elapsed.count() << endl;
-    dprint(hi_indexes);
-
-    t1 = chrono::system_clock::now();
-    vector<string> cr_reads = cr->find_reads(query);
-    t2 = std::chrono::system_clock::now();
-    elapsed = t2 - t1;
-    cout << "cr->find_reads took " << elapsed.count() << endl;
-    dprint(cr_reads);
-
-    t1 = chrono::system_clock::now();
-    vector<string> hi_reads = hi->find_reads(query);
-    t2 = std::chrono::system_clock::now();
-    elapsed = t2 - t1;
-    cout << "hi->find_reads took " << elapsed.count() << endl;
-    dprint(hi_reads);
-
-    cout << "occurrences: " << cr_indexes.size() << endl;
-
-    return (cr_indexes.size() == hi_indexes.size() &&
-            cr_reads.size() == hi_reads.size() &&
-            equal(cr_indexes.begin(), cr_indexes.end(), hi_indexes.begin()) &&
-            equal(cr_reads.begin(), cr_reads.end(), hi_reads.begin()));
+    return true;
 }
 
 vector<string> generate_random_queries(int num_of_queries, int query_length) {
@@ -93,10 +58,6 @@ vector<string> generate_random_queries(int num_of_queries, int query_length) {
 
 vector<string> generate_queries_from_file(int num_of_queries, int query_length,
         string reads_filename) {
-//    vector<string> retval = {"TTTAAAGCTTCAG", "TAATGTCTGGAAT", "TAATTTTTTTATA",
-//                "GTTTTTGGTGAAA", "GTAATGTTGTTTT", "ATATCGACGTCTT", "AAAAAAAAAAAAA"};
-//    vector<string> retval = { "TTTAAAGCTTCAA" };
-//    return retval;
     vector<string> retval;
 
     ifstream f(reads_filename);
@@ -136,10 +97,9 @@ bool test(string reads_filename) {
     int num_of_queries = 10000;
 
     CRIndex cr = CRIndex(reads_filename, read_length, false);
-    HashIndex hi = HashIndex(reads_filename, query_length, true);
 
     cout << fixed << "Testing " << num_of_queries << " queries of length " <<
-            query_length << endl;
+            query_length << " file: " << reads_filename << endl;
     vector<string> queries = generate_queries_from_file(num_of_queries,
             query_length, reads_filename);
     int c = 0;
@@ -153,7 +113,7 @@ bool test(string reads_filename) {
         if (c % 100 == 0) {
             cout << c << "/" << num_of_queries << endl;
         }
-        if (!query_ok(&cr, &hi, q)) {
+        if (!query_ok(&cr, q)) {
             cerr << "query " << q << " failed." << endl;
             return false;
         }

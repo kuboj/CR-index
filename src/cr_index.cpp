@@ -252,14 +252,42 @@ vector<t_pos> CRIndex::locate_positions2(const string& s, const string& s_check)
         auto up = upper_bound(this->positions.begin(), this->positions.end(), end_index);
         for (auto it = low; it != up; it++) {
             // drop false positives
+            int pos = get<0>(*it);
+            int read_id = get<1>(*it);
+            int s_pos_in_read = i - pos;
+            int s_pos_in_rev_compl_read = abs(i - pos + (int)s.size() - (int)this->read_length);
             bool rev_compl = get<2>(*it);
-            string orig_read = extract_original_read(*it);
-            string p = s_check;
+
+            t_diff start_index2(read_id, -1, 'A');
+            t_diff end_index2(read_id, numeric_limits<int>::max(), 'A');
+            auto low2 = lower_bound(this->diff.begin(), this->diff.end(), start_index2);
+            auto up2 = upper_bound(this->diff.begin(), this->diff.end(), end_index2);
+
+            string s2 = s;
             if (rev_compl) {
-                p = cr_util::rev_compl(s_check);
-            }
-            if (orig_read.find(p) != string::npos) {
-                retval.push_back(*it);
+                s2 = cr_util::rev_compl(s2);
+
+                for (auto it2 = low2; it2 != up2; it2++) {
+                    int j = get<1>(*it2) - s_pos_in_rev_compl_read;
+                    if (j >= 0 && (size_t)j < s2.size()) {
+                        s2[j] = get<2>(*it2);
+                    }
+                }
+
+                if (s2 == cr_util::rev_compl(s_check)) {
+                    retval.push_back(*it);
+                }
+            } else {
+                for (auto it2 = low2; it2 != up2; it2++) {
+                    int j = get<1>(*it2) - s_pos_in_read;
+                    if (j >= 0 && (size_t)j < s2.size()) {
+                        s2[j] = get<2>(*it2);
+                    }
+                }
+
+                if (s2 == s_check) {
+                    retval.push_back(*it);
+                }
             }
         }
     }

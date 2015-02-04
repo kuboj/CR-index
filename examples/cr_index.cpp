@@ -29,24 +29,24 @@ void test1(string genome_filename) {
         cout << "waiting for input: " << endl;
         getline(cin, ll);
         boost::algorithm::trim_copy(ll);
-//        chrono::time_point<std::chrono::system_clock> t1, t2;
-//        chrono::duration<double> elapsed;
+        chrono::time_point<std::chrono::system_clock> t1, t2;
+        chrono::duration<double> elapsed;
 
-//        t1 = chrono::system_clock::now();
+        t1 = chrono::system_clock::now();
         vector<string> r1 = rm.find_reads(ll);
-        for (string s : r1) {
-            cout << s << endl;
-        }
+        cout << r1.size() << " occurences" << endl;
+//        for (string s : r1) {
+//            cout << s << endl;
+//        }
 
-        cout << endl << endl;
-//        t2 = std::chrono::system_clock::now();
+        t2 = std::chrono::system_clock::now();
 
-//        elapsed = t2 - t1;
-//        cout << "cr->find_indexes(" << ll << ")  took " << elapsed.count() << endl << endl;
-        vector<int> r2 = rm.find_indexes(ll);
-        for (int i: r2) {
-            cout << i << endl;
-        }
+        elapsed = t2 - t1;
+        cout << "cr->find_reads(" << ll << ")  took " << elapsed.count() << endl << endl;
+//        vector<int> r2 = rm.find_indexes(ll);
+//        for (int i: r2) {
+//            cout << i << endl;
+//        }
     }
 }
 
