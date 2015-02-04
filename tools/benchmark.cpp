@@ -19,27 +19,6 @@
 
 using namespace std;
 
-bool print(vector<int> v) {
-    for (int i : v) {
-        cout << i << ", ";
-    }
-    cout << endl;
-    return true;
-}
-
-bool print(vector<string> v) {
-    for (string i : v) {
-        cout << i << endl;
-    }
-    return true;
-}
-
-bool query_ok(CRIndex *cr, const string& query) {
-    vector<int> cr_indexes = cr->find_indexes(query);
-
-    return true;
-}
-
 vector<string> generate_random_queries(int num_of_queries, int query_length) {
     vector<string> retval;
 
@@ -113,10 +92,7 @@ bool test(string reads_filename) {
         if (c % 100 == 0) {
             cout << c << "/" << num_of_queries << endl;
         }
-        if (!query_ok(&cr, q)) {
-            cerr << "query " << q << " failed." << endl;
-            return false;
-        }
+        vector<int> cr_indexes = cr.find_indexes(q);
     }
 
     t2 = std::chrono::system_clock::now();
