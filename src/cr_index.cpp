@@ -264,70 +264,19 @@ vector<t_pos> CRIndex::locate_positions2(const string& s, const string& s_check)
             auto up2 = upper_bound(this->diff.begin(), this->diff.end(), end_index2);
 
             if (rev_compl) {
-//                cout << "rev compl: true" << endl;
-//                cout << "read id: " << read_id << endl;
-//                cout << "original read: " << extract_original_read(*it) << endl;
-//                cout << "query: " << s << endl;
-//                cout << "query check: " << s_check << endl;
-//
-//                string s_check2 = cr_util::rev_compl(s_check);
-//                string s2 = cr_util::rev_compl(s);
-//
-//                for (auto it2 = low2; it2 != up2; it2++) {
-//                    cout << get<1>(*it2) << ", " << get<2>(*it2) << endl;
-//                    int j = abs(get<1>(*it2) - s_pos_in_read - this->read_length + 1);
-//                    if (j >= 0 && (size_t)j < s2.size()) {
-//                        s2[j] = get<2>(*it2);
-//                    }
-//                }
-//
-//                cout << "corr query rev compl: " << s2 << endl;
-//                cout << "query check rev compl: " << s_check2 << endl;
+                string s_check2 = cr_util::rev_compl(s_check);
+                string s2 = cr_util::rev_compl(s);
 
-//                if (s2 == s_check2) {
-//                    retval.push_back(*it);
-//                }
-
-//                string orig_read = extract_original_read(*it);
-//                string p = s_check;
-//                p = cr_util::rev_compl(s_check);
-                //if (orig_read.find(p) != string::npos) {
-
-                    string s_check2 = cr_util::rev_compl(s_check);
-                    string s2 = cr_util::rev_compl(s);
-
-                    for (auto it2 = low2; it2 != up2; it2++) {
-                        int j = get<1>(*it2);
-                        if (j >= s_pos_in_rev_compl_read && (size_t)j < s_pos_in_rev_compl_read + s2.size()) {
-                            s2[j - s_pos_in_rev_compl_read] = get<2>(*it2);
-                        }
+                for (auto it2 = low2; it2 != up2; it2++) {
+                    int j = get<1>(*it2);
+                    if (j >= s_pos_in_rev_compl_read && (size_t)j < s_pos_in_rev_compl_read + s2.size()) {
+                        s2[j - s_pos_in_rev_compl_read] = get<2>(*it2);
                     }
+                }
 
-
-//                    if (s2 != s_check2) {
-//                        cout << "rev compl: true" << endl;
-//                        cout << "i: " << i << endl;
-//                        cout << "pos: " << pos << endl;
-//                        cout << "s_pos_in_read: " << s_pos_in_read << endl;
-//                        cout << "s_pos_in_rev_compl_read: " << s_pos_in_rev_compl_read << endl;
-//                        cout << "read id: " << read_id << endl;
-//                        cout << "original read: " << extract_original_read(*it) << endl;
-//                        cout << "read in SS: " << this->fm_index.extract(pos, this->read_length) << endl;
-//                        cout << "query: " << s << endl;
-//                        cout << "query check: " << s_check << endl;
-//                        cout << "corr query rev compl:  " << s2 << endl;
-//                        cout << "query check rev compl: " << s_check2 << endl;
-//                        for (auto it2 = low2; it2 != up2; it2++) {
-//                            cout << get<1>(*it2) << ", " << get<2>(*it2) << endl;
-//                        }
-//                        cout << s2 << " == " << s_check2 << endl << endl;;
-//                    }
-
-                    if (s2 == s_check2) {
-
+                if (s2 == s_check2) {
                     retval.push_back(*it);
-                    }
-                //}
+                }
             } else {
                 string s2 = s;
                 for (auto it2 = low2; it2 != up2; it2++) {
