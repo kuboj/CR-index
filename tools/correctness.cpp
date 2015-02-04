@@ -95,7 +95,7 @@ vector<string> generate_queries_from_file(int num_of_queries, int query_length,
         string reads_filename) {
 //    vector<string> retval = {"TTTAAAGCTTCAG", "TAATGTCTGGAAT", "TAATTTTTTTATA",
 //                "GTTTTTGGTGAAA", "GTAATGTTGTTTT", "ATATCGACGTCTT", "AAAAAAAAAAAAA"};
-//    vector<string> retval = { "ATTTTTATTAGAA" };
+//    vector<string> retval = { "TTTAAAGCTTCAA" };
 //    return retval;
     vector<string> retval;
 
