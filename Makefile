@@ -4,8 +4,8 @@ SRCEXT=cpp
 BUILDDIR=build
 EXAMPLESDIR=examples
 
-CFLAGS=-g -W -Wall -O0 -DDEBUG -std=c++11
-#CFLAGS=-W -Wall -O3 -std=c++11
+#CFLAGS=-g -W -Wall -O0 -DDEBUG -std=c++11
+CFLAGS=-W -Wall -O3 -std=c++11
 #CFLAGS=-W -Wall -O2 -std=c++11 -pg -g
 
 SOURCES=$(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
@@ -33,4 +33,5 @@ $(EXAMPLES): $(OBJECTS)
 correctness: $(OBJECTS)
 	@echo " $(CC) $(CFLAGS) $^ -o bin/$@ tools/$@.$(SRCEXT) $(INC) $(LIB)"; $(CC) $(CFLAGS) $^ -o bin/$@ tools/$@.$(SRCEXT) $(INC) $(LIB)
 
-
+benchmark: $(OBJECTS)
+	@echo " $(CC) $(CFLAGS) $^ -o bin/$@ tools/$@.$(SRCEXT) $(INC) $(LIB)"; $(CC) $(CFLAGS) $^ -o bin/$@ tools/$@.$(SRCEXT) $(INC) $(LIB)
