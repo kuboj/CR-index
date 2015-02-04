@@ -12,8 +12,14 @@
 using namespace std;
 
 void test1(string genome_filename) {
+    ifstream f(genome_filename);
+    string l;
+    getline(f, l);
+    getline(f, l);
+    int read_length = l.size();
+
     cout << "Building CRIndex ... " << endl;
-    CRIndex rm = CRIndex(genome_filename, 101, false);
+    CRIndex rm = CRIndex(genome_filename, read_length, false);
 
     string ll;
 //    vector<string> queries = {"TTTAAAGCTTCAG", "TAATGTCTGGAAT", "TAATTTTTTTATA",
@@ -41,7 +47,6 @@ void test1(string genome_filename) {
         for (int i: r2) {
             cout << i << endl;
         }
-        // TAATGTCTGGAAT
     }
 }
 

@@ -127,8 +127,11 @@ vector<string> generate_queries_from_file(int num_of_queries, int query_length,
 }
 
 bool test(string reads_filename) {
-    //int read_length = 100;
-    int read_length = 101;
+    ifstream f(reads_filename);
+    string l;
+    getline(f, l);
+    getline(f, l);
+    int read_length = l.size();
     int query_length = 13;
     int num_of_queries = 100000;
 
