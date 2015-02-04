@@ -133,7 +133,7 @@ bool test(string reads_filename) {
     getline(f, l);
     int read_length = l.size();
     int query_length = 13;
-    int num_of_queries = 100000;
+    int num_of_queries = 10000;
 
     CRIndex cr = CRIndex(reads_filename, read_length, false);
     HashIndex hi = HashIndex(reads_filename, query_length, true);
