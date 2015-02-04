@@ -263,33 +263,32 @@ vector<t_pos> CRIndex::locate_positions2(const string& s, const string& s_check)
             auto low2 = lower_bound(this->diff.begin(), this->diff.end(), start_index2);
             auto up2 = upper_bound(this->diff.begin(), this->diff.end(), end_index2);
 
+            string s2 = s;
             if (rev_compl) {
-                string s_check2 = cr_util::rev_compl(s_check);
-                string s2 = cr_util::rev_compl(s);
+                s2 = cr_util::rev_compl(s2);
 
                 for (auto it2 = low2; it2 != up2; it2++) {
-                    int j = get<1>(*it2);
-                    if (j >= s_pos_in_rev_compl_read && (size_t)j < s_pos_in_rev_compl_read + s2.size()) {
-                        s2[j - s_pos_in_rev_compl_read] = get<2>(*it2);
+                    int j = get<1>(*it2) - s_pos_in_rev_compl_read;
+                    if (j >= 0 && (size_t)j < s2.size()) {
+                        s2[j] = get<2>(*it2);
                     }
                 }
 
-                if (s2 == s_check2) {
+                if (s2 == cr_util::rev_compl(s_check)) {
                     retval.push_back(*it);
                 }
             } else {
-                string s2 = s;
                 for (auto it2 = low2; it2 != up2; it2++) {
                     int j = get<1>(*it2) - s_pos_in_read;
                     if (j >= 0 && (size_t)j < s2.size()) {
                         s2[j] = get<2>(*it2);
                     }
                 }
+
                 if (s2 == s_check) {
                     retval.push_back(*it);
                 }
             }
-
         }
     }
 
