@@ -104,7 +104,7 @@ bool test(string reads_filename) {
 
 int main(int argc, char** argv) {
     if (argc < 2) {
-        cerr << "Run CR-index against hashmap." << endl;
+        cerr << "Run CR-index " << endl;
         cerr << "Usage: " << argv[0] << " filename" << endl;
         cerr << "Example: " << endl;
         cerr << "  " << argv[0] << " bacteria.fastq" << endl;
@@ -119,7 +119,7 @@ int main(int argc, char** argv) {
             cerr << "Failed to pass." << endl;
             exit(1);
         }
-    } catch(exception &e) {
+    } catch (exception &e) {
         cerr << "Error: " << e.what() << endl;
         exit(1);
     }

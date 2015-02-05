@@ -19,7 +19,7 @@ void test1(string genome_filename) {
     int read_length = l.size();
 
     cout << "Building CRIndex ... " << endl;
-    CRIndex rm = CRIndex(genome_filename, read_length, false);
+    CRIndex rm = CRIndex(genome_filename, read_length, true);
 
     string ll;
 //    vector<string> queries = {"TTTAAAGCTTCAG", "TAATGTCTGGAAT", "TAATTTTTTTATA",
