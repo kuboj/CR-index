@@ -99,9 +99,9 @@ int main(int argc, char** argv) {
         cerr << "Construct index " << endl;
         cerr << "Usage: " << argv[0] << " <index_type> <filename> ";
         cerr << "<read_length> <query_length>" << endl;
-        cerr << "index_type: cr, hash" << endl;
+        cerr << "index_type: cr, hash, gk" << endl;
         cerr << "Example: " << endl;
-        cerr << "  " << argv[0] << "cr bacteria.fastq" << endl;
+        cerr << "  " << argv[0] << "cr bacteria.fastq 100 13" << endl;
         exit(1);
     }
 
