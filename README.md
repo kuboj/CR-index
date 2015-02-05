@@ -15,9 +15,7 @@ Compressed read index - bioinf data structure for fast querying substring in rea
 
 # TODO
 
-  * how to measure RAM used?
-    * [http://people.ksp.sk/~johnny64/bordel/referenced_memory_size.cpp]()
-  * write benchmark scripts
+  * test e-coli bacteria
   * implement bloom filter?
     * [https://github.com/mavam/libbf]()
     * [https://code.google.com/p/bloom/]()
