@@ -37,4 +37,4 @@ benchmark: $(OBJECTS)
 	@echo " $(CC) $(CFLAGS) $^ -o bin/$@ tools/$@.$(SRCEXT) $(INC) $(LIB)"; $(CC) $(CFLAGS) $^ -o bin/$@ tools/$@.$(SRCEXT) $(INC) $(LIB)
 
 construct: $(OBJECTS)
-	@echo " $(CC) $(CFLAGS) $^ -o bin/$@ tools/$@.$(SRCEXT) $(INC) $(LIB) -lz -GkArrays"; $(CC) $(CFLAGS) $^ -o bin/$@ tools/$@.$(SRCEXT) $(INC) $(LIB)
+	@echo " $(CC) $(CFLAGS) $^ -o bin/$@ tools/$@.$(SRCEXT) $(INC) $(LIB) -lGkArrays -lz"; $(CC) $(CFLAGS) $^ -o bin/$@ tools/$@.$(SRCEXT) $(INC) $(LIB) -lGkArrays -lz

@@ -10,6 +10,7 @@
 #include <chrono>
 #include "cr_index.hpp"
 #include "hash_index.hpp"
+#include <libGkArrays/gkArrays.h>
 
 using namespace std;
 
@@ -78,6 +79,9 @@ bool test(string index_type, string reads_filename, int read_length,
         CRIndex cr = CRIndex(reads_filename, read_length, false);
     } else if (index_type == "hash") {
         HashIndex h = HashIndex(reads_filename, query_length, true);
+    } else if (index_type == "gk") {
+        char* f = const_cast<char*>(reads_filename.c_str());
+        gkarrays::gkArrays *reads = new gkarrays::gkArrays(f, query_length, true, 0, false, 4);
     } else {
         cerr << "Unknown index_type '" << index_type << "'" << endl;
         return false;

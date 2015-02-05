@@ -21,4 +21,11 @@ Compressed read index - bioinf data structure for fast querying substring in rea
   * implement bloom filter?
     * [https://github.com/mavam/libbf]()
     * [https://code.google.com/p/bloom/]()
-    
+
+# Benchmark
+
+  * 6M reads (generated from yarrowia.fasta), read length 100, 1% of errors
+    * 352K critical reads
+    * superstring compress ratio 2.59
+    * superstring size 231M (1.85M reads were missing)
+    * RSS ~ 300MB    
