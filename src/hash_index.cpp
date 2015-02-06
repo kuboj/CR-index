@@ -7,13 +7,14 @@ HashIndex::HashIndex() {
     //
 }
 
-HashIndex::HashIndex(string p, int q, bool sr) {
+HashIndex::HashIndex(const string& p, int q, bool sr, bool v) {
     this->data = unordered_map<string, vector<int>>();
     this->reads = vector<string>();
     this->query_length = q;
     this->save_reads = sr;
+    this->verbose = v;
 
-    cout << "Constructing HashIndex ..." << endl;
+    debug("Constructing HashIndex ...");
 
     ifstream f(p);
     if (!f) {
@@ -30,7 +31,7 @@ HashIndex::HashIndex(string p, int q, bool sr) {
             continue;
         }
         if ((i / 4) % 10000 == 0) {
-            cout << "processed " << reads_count << " reads" << endl;
+            debug("processed " + to_string(reads_count) + " reads");
         }
         if (process(l, i / 4)) {
             reads_count++;
@@ -40,7 +41,7 @@ HashIndex::HashIndex(string p, int q, bool sr) {
             this->reads.push_back(l);
         }
     }
-    cout << "processed " << reads_count << " reads" << endl;
+    debug("processed " + to_string(reads_count) + " reads");
 }
 
 vector<int> HashIndex::find_indexes(const string& s) {
@@ -53,6 +54,11 @@ vector<int> HashIndex::find_indexes(const string& s) {
     }
     sort(retval.begin(), retval.end());
     retval.erase(unique(retval.begin(), retval.end()), retval.end());
+
+    for (int i : retval) {
+        cout << i << ", ";
+    }
+    cout << endl;
 
     return retval;
 }
@@ -85,4 +91,10 @@ bool HashIndex::process(const string& read, int read_id) {
     }
 
     return true;
+}
+
+void HashIndex::debug(const string& s) {
+    if (this->verbose) {
+        cout << s << endl;
+    }
 }

@@ -53,7 +53,8 @@ bool test(string index_type, string reads_filename, string queries_filename,
             }
         }
     } else if (index_type == "hash") {
-        HashIndex h = HashIndex(reads_filename, query_length, query_type == "read");
+        HashIndex h = HashIndex(reads_filename, query_length,
+                query_type == "read");
 
         cout << "Querying ..." << endl;
         t1 = std::chrono::system_clock::now();
@@ -67,15 +68,21 @@ bool test(string index_type, string reads_filename, string queries_filename,
     } else if (index_type == "gk") {
         char* f = const_cast<char*>(reads_filename.c_str());
         gkarrays::gkArrays *gk = new gkarrays::gkArrays(f, query_length,
-                true, 0, false, 4);
+                true, 0, true, 4);
 
         cout << "Querying ..." << endl;
         t1 = std::chrono::system_clock::now();
         for (string q : queries) {
             if (query_type == "index") {
                 uint num;
-                auto *occurrences = gk->getTagsWithFactor(&q[0u],
-                        static_cast<unsigned int>(q.size()), num); // maybe size + 1 ?
+//                auto *occurrences = gk->getTagsWithFactor(&q[0u],
+//                        static_cast<unsigned int>(q.size()), num); // maybe size + 1 ?
+                auto *occurrences = gk->getTagsWithFactor("TTTTTAACTTGAT", 13, num); // maybe size + 1 ?
+                for (uint i = 0; i < num; i++) {
+                    cout << occurrences[i].first << ", " << occurrences[i].second << endl;
+                    cout << gk->getTag(occurrences[i].first) << endl;
+                    //gk->getTag(occurrences[i].first);
+                }
                 delete[] occurrences;
             } else if (query_type == "reads") {
                 uint num;
