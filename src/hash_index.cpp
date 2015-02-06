@@ -55,11 +55,6 @@ vector<int> HashIndex::find_indexes(const string& s) {
     sort(retval.begin(), retval.end());
     retval.erase(unique(retval.begin(), retval.end()), retval.end());
 
-    for (int i : retval) {
-        cout << i << ", ";
-    }
-    cout << endl;
-
     return retval;
 }
 

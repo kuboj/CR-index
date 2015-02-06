@@ -81,7 +81,7 @@ bool test(string index_type, string reads_filename, int read_length,
     }
     t2 = std::chrono::system_clock::now();
     elapsed = t2 - t1;
-    cout << "Construction took " << elapsed.count() << "s" << endl;
+    cout << fixed << "Construction took " << elapsed.count() << "s" << endl;
     cout << "Referenced memory: " << get_referenced_memory_size() << "kB" << endl;
 
     return true;

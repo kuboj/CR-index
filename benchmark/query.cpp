@@ -75,19 +75,14 @@ bool test(string index_type, string reads_filename, string queries_filename,
         for (string q : queries) {
             if (query_type == "index") {
                 uint num;
-//                auto *occurrences = gk->getTagsWithFactor(&q[0u],
-//                        static_cast<unsigned int>(q.size()), num); // maybe size + 1 ?
-                auto *occurrences = gk->getTagsWithFactor("TTTTTAACTTGAT", 13, num); // maybe size + 1 ?
-                for (uint i = 0; i < num; i++) {
-                    cout << occurrences[i].first << ", " << occurrences[i].second << endl;
-                    cout << gk->getTag(occurrences[i].first) << endl;
-                    //gk->getTag(occurrences[i].first);
-                }
+                auto *occurrences = gk->getTagsWithFactor(&q[0u],
+                        static_cast<unsigned int>(q.size()), num);
+
                 delete[] occurrences;
             } else if (query_type == "reads") {
                 uint num;
                 auto *occurrences = gk->getTagsWithFactor(&q[0u],
-                        static_cast<unsigned int>(q.size()), num); // maybe size + 1 ?
+                        static_cast<unsigned int>(q.size()), num);
                 for (uint i = 0; i < num; i++) {
                     gk->getTag(occurrences[i].first);
                 }
@@ -98,7 +93,7 @@ bool test(string index_type, string reads_filename, string queries_filename,
     }
     t2 = std::chrono::system_clock::now();
     elapsed = t2 - t1;
-    cout << "Querying took " << elapsed.count() << "s" << endl;
+    cout << fixed << "Querying took " << elapsed.count() << "s" << endl;
 
     return true;
 }
