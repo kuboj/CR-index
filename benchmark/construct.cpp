@@ -74,7 +74,8 @@ bool test(string index_type, string reads_filename, int read_length,
         HashIndex h = HashIndex(reads_filename, query_length, true);
     } else if (index_type == "gk") {
         char* f = const_cast<char*>(reads_filename.c_str());
-        gkarrays::gkArrays *reads = new gkarrays::gkArrays(f, query_length, true, 0, false, 4);
+        gkarrays::gkArrays *reads = new gkarrays::gkArrays(f, query_length,
+                true, 0, true, 4);
     } else {
         cerr << "Unknown index_type '" << index_type << "'" << endl;
         return false;
