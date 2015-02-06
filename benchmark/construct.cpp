@@ -1,12 +1,5 @@
-//#include <stdio.h>
-//#include <stdlib.h>
-//#include <stdint.h>
-//#include <time.h>
 #include <iostream>
-//#include <vector>
 #include <string>
-//#include <utility>
-//#include <algorithm>
 #include <chrono>
 #include "cr_index.hpp"
 #include "hash_index.hpp"
@@ -81,14 +74,15 @@ bool test(string index_type, string reads_filename, int read_length,
         HashIndex h = HashIndex(reads_filename, query_length, true);
     } else if (index_type == "gk") {
         char* f = const_cast<char*>(reads_filename.c_str());
-        gkarrays::gkArrays *reads = new gkarrays::gkArrays(f, query_length, true, 0, false, 4);
+        gkarrays::gkArrays *reads = new gkarrays::gkArrays(f, query_length,
+                true, 0, true, 4);
     } else {
         cerr << "Unknown index_type '" << index_type << "'" << endl;
         return false;
     }
     t2 = std::chrono::system_clock::now();
     elapsed = t2 - t1;
-    cout << "Construction took " << elapsed.count() << "s" << endl;
+    cout << fixed << "Construction took " << elapsed.count() << "s" << endl;
     cout << "Referenced memory: " << get_referenced_memory_size() << "kB" << endl;
 
     return true;
@@ -99,9 +93,9 @@ int main(int argc, char** argv) {
         cerr << "Construct index " << endl;
         cerr << "Usage: " << argv[0] << " <index_type> <filename> ";
         cerr << "<read_length> <query_length>" << endl;
-        cerr << "index_type: cr, hash" << endl;
+        cerr << "index_type: cr, hash, gk" << endl;
         cerr << "Example: " << endl;
-        cerr << "  " << argv[0] << "cr bacteria.fastq" << endl;
+        cerr << "  " << argv[0] << "cr bacteria.fastq 100 13" << endl;
         exit(1);
     }
 

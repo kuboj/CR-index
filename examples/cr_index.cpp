@@ -99,7 +99,7 @@ void test1(string genome_filename) {
 
 int main(int argc, char** argv) {
     if (argc < 2) {
-        cerr << "Usage: " << argv[0] << " filename [filename] [filename]" << endl;
+        cerr << "Usage: " << argv[0] << " <filename> [filename] [filename]" << endl;
         cerr << "Examples: " << endl;
         cerr << "  Read .fastq file and construct CR-index" << endl;
         cerr << "  " << argv[0] << " bacteria.fastq" << endl;
