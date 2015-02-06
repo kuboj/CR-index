@@ -1,12 +1,5 @@
-//#include <stdio.h>
-//#include <stdlib.h>
-//#include <stdint.h>
-//#include <time.h>
 #include <iostream>
-//#include <vector>
 #include <string>
-//#include <utility>
-//#include <algorithm>
 #include <chrono>
 #include "cr_index.hpp"
 #include "hash_index.hpp"
