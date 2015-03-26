@@ -6,7 +6,7 @@ EXAMPLESDIR=examples
 BENCHMARKSDIR=benchmark
 
 #CFLAGS=-g -W -Wall -O0 -DDEBUG -std=c++11
-CFLAGS=-W -Wall -O3 -std=c++11
+CFLAGS=-W -Wall -O3 -std=c++11 -Wno-unused-variable
 #CFLAGS=-W -Wall -O2 -std=c++11 -pg -g
 
 SOURCES=$(shell find $(SRCDIR) -type f -name *.$(SRCEXT))

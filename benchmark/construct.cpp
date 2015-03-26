@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <chrono>
+#include <malloc.h>
 #include "cr_index.hpp"
 #include "hash_index.hpp"
 #include <libGkArrays/gkArrays.h>
@@ -67,23 +68,44 @@ bool test(string index_type, string reads_filename, int read_length,
     cout << "read_filename: " << reads_filename << endl;
     cout << "read_length: " << read_length << endl;
     cout << "query_length: " << query_length << endl;
+    string test_query(query_length, 'A');
     t1 = std::chrono::system_clock::now();
     if (index_type == "cr") {
         CRIndex cr = CRIndex(reads_filename, read_length, false);
+
+        malloc_trim(42);
+        t2 = std::chrono::system_clock::now();
+        elapsed = t2 - t1;
+
+        cout << fixed << "Construction took " << elapsed.count() << "s" << endl;
+        cout << "Referenced memory: " << get_referenced_memory_size() << "kB" << endl;
+        int i = cr.find_indexes(test_query).size();
     } else if (index_type == "hash") {
         HashIndex h = HashIndex(reads_filename, query_length, true);
+
+        malloc_trim(42);
+        t2 = std::chrono::system_clock::now();
+        elapsed = t2 - t1;
+
+        cout << fixed << "Construction took " << elapsed.count() << "s" << endl;
+        cout << "Referenced memory: " << get_referenced_memory_size() << "kB" << endl;
+        int i = h.find_indexes(test_query).size();
     } else if (index_type == "gk") {
         char* f = const_cast<char*>(reads_filename.c_str());
         gkarrays::gkArrays *reads = new gkarrays::gkArrays(f, query_length,
                 true, 0, true, 4);
+
+        malloc_trim(42);
+        t2 = std::chrono::system_clock::now();
+        elapsed = t2 - t1;
+
+        cout << fixed << "Construction took " << elapsed.count() << "s" << endl;
+        cout << "Referenced memory: " << get_referenced_memory_size() << "kB" << endl;
+        uint i = reads->getNbTags();
     } else {
         cerr << "Unknown index_type '" << index_type << "'" << endl;
         return false;
     }
-    t2 = std::chrono::system_clock::now();
-    elapsed = t2 - t1;
-    cout << fixed << "Construction took " << elapsed.count() << "s" << endl;
-    cout << "Referenced memory: " << get_referenced_memory_size() << "kB" << endl;
 
     return true;
 }
