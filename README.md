@@ -5,9 +5,11 @@ Compressed read index - bioinf data structure for fast querying substring in rea
 
 ### Dependencies
 
+  * [SGA](https://github.com/jts/sga)
   * [SDSL](https://github.com/simongog/sdsl-lite)
   * [Boost](http://www.boost.org/) (widely available as system package)
   * [PStreams](http://pstreams.sourceforge.net/) (widely available as system package)
+  * [libboost](http://www.boost.org/) - "libboost-filesystem" and "libboost-system" libs
 
 ### Installation
 
