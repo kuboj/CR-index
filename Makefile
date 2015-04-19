@@ -2,6 +2,7 @@ CC=g++
 SRCDIR=src
 SRCEXT=cpp
 BUILDDIR=build
+BINDIR=bin
 EXAMPLESDIR=examples
 BENCHMARKSDIR=benchmark
 
@@ -20,6 +21,7 @@ all: $(OBJECTS)
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 	@mkdir -p $(BUILDDIR)
+	@mkdir -p $(BINDIR)
 	@echo " $(CC) $(CFLAGS) $(INC) -c -o $@ $<"; $(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 clean:
