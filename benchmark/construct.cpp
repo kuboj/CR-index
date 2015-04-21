@@ -117,7 +117,7 @@ int main(int argc, char** argv) {
         cerr << "<read_length> <query_length>" << endl;
         cerr << "index_type: cr, hash, gk" << endl;
         cerr << "Example: " << endl;
-        cerr << "  " << argv[0] << "cr bacteria.fastq 100 13" << endl;
+        cerr << "  " << argv[0] << " cr bacteria.fastq 100 13" << endl;
         exit(1);
     }
 
